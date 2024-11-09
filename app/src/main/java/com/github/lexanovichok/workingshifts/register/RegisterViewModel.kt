@@ -1,5 +1,6 @@
 package com.github.lexanovichok.workingshifts.register
 
+import android.util.Log
 import com.github.lexanovichok.workingshifts.auth.AuthRepository
 import com.github.lexanovichok.workingshifts.auth.AuthViewModel
 import com.github.lexanovichok.workingshifts.core.InputValidator
@@ -26,9 +27,7 @@ class RegisterViewModel(
     }
 
     fun register(email: String, password: String, confirmPassword: String) {
-        if (!isEmailValid(email)) {
-            return
-        }
+        if (!checkIsFieldsCorrect(email, password)) return
 
         if (!inputValidator.isPasswordValid(password)) {
             if (password.length < 6) {
@@ -48,9 +47,25 @@ class RegisterViewModel(
         viewModelScope.launch {
             try {
                 authRepository.register(email, password)
-                _errorMessage.value = "Please check your email to verify your account."
+                _errorMessage.value = "Please check email to verify your account."
             } catch (e: Exception) {
                 _errorMessage.value = "Registration failed: ${e.localizedMessage}"
+            }
+        }
+    }
+
+    fun resendVerificationEmail() {
+        viewModelScope.launch {
+            try {
+                val user = authRepository.getCurrentUser()
+                if (user != null && !user.isEmailVerified) {
+                    user.sendEmailVerification()
+                    _errorMessage.value = "Verification email has been sent again. Please check your inbox."
+                } else {
+                    _errorMessage.value = "User is either not logged in or already verified."
+                }
+            } catch (e: Exception) {
+                _errorMessage.value = "Failed to resend verification email: ${e.localizedMessage}"
             }
         }
     }

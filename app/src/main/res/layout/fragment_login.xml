@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/backgr_im"
-    tools:context=".MainActivity">
+    tools:context=".main.MainActivity">
 
 
 
@@ -54,12 +54,12 @@
             android:inputType="textPassword" />
 
         <TextView
-            android:id="@+id/forgot_password"
+            android:id="@+id/forgotPasswordTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:layout_marginTop="12dp"
-            android:text="Forgot?"
+            android:text="Forgot password?"
             android:clickable="true"
             android:minHeight="48dp"
             android:layout_gravity="start"
@@ -71,13 +71,6 @@
             android:orientation="horizontal"
             android:layout_marginBottom="16dp" >
 
-            <CheckBox
-                android:id="@+id/remember_me"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Remember me"
-                android:textColor="#FFFFFF"
-                android:buttonTint="#FFFFFF" />
 
 
         </LinearLayout>
@@ -92,7 +85,7 @@
             android:layout_marginBottom="16dp" />
 
         <TextView
-            android:id="@+id/signup"
+            android:id="@+id/signupTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"

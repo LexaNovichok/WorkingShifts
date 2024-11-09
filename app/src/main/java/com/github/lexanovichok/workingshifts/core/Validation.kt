@@ -6,8 +6,7 @@ class InputValidator {
     }
 
     fun isPasswordValid(password: String): Boolean {
-        val passwordPattern = "(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{6,}"
-        return password.matches(passwordPattern.toRegex())
+        return password.length >= 6
     }
 
     fun arePasswordsMatching(password: String, confirmPassword: String): Boolean {

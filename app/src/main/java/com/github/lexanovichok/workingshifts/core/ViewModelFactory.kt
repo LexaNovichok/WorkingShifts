@@ -2,7 +2,7 @@ package com.github.lexanovichok.workingshifts.core
 
 import androidx.lifecycle.ViewModel
 
-interface ViewModelFactory : ProvideViewModel {
+interface ViewModelFactory : ProvideViewModel, ClearViewModel {
 
     class Base(
         private val provideViewModel: ProvideViewModel
@@ -18,6 +18,10 @@ interface ViewModelFactory : ProvideViewModel {
             } else {
                 viewModel as T
             }
+        }
+
+        override fun clearViewModel(viewModelClass: Class<out ViewModel>) {
+            map.remove(viewModelClass)
         }
     }
 }

@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.github.lexanovichok.workingshifts.core.AbstractFragment
+import com.github.lexanovichok.workingshifts.core.ProvideViewModel
 import com.github.lexanovichok.workingshifts.databinding.FragmentSignupBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -14,7 +15,6 @@ import com.google.firebase.ktx.Firebase
 class RegisterFragment : AbstractFragment<FragmentSignupBinding>() {
 
     private lateinit var registerViewModel: RegisterViewModel
-    private lateinit var auth: FirebaseAuth
     override fun bind(inflater: LayoutInflater, container: ViewGroup?): FragmentSignupBinding =
         FragmentSignupBinding.inflate(inflater, container, false)
 
@@ -22,8 +22,7 @@ class RegisterFragment : AbstractFragment<FragmentSignupBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        auth = Firebase.auth
-
+        registerViewModel = (activity as ProvideViewModel).viewModel(RegisterViewModel::class.java)
 
         registerViewModel.errorMessage.observe(viewLifecycleOwner) { errorMessage ->
             errorMessage?.let {
@@ -31,23 +30,27 @@ class RegisterFragment : AbstractFragment<FragmentSignupBinding>() {
             }
         }
 
-        registerViewModel.isLoggedIn.observe(viewLifecycleOwner) { isLoggedIn ->
-            if (isLoggedIn) {
-                // Переход на следующий экран или сообщение об успешной регистрации
-                Toast.makeText(requireContext(), "Registration successful", Toast.LENGTH_SHORT)
-                    .show()
-            }
-
-
-        }
-
         binding.signupButton.setOnClickListener {
             val email = binding.email.text.toString()
             val password = binding.password.text.toString()
-            val passwordConfirm = binding.passwordConfirm.toString()
+            val passwordConfirm = binding.passwordConfirm.text.toString()
 
+            hideKeyBoard()
             registerViewModel.register(email, password, passwordConfirm)
         }
+
+        binding.logInTextView.setOnClickListener {
+            registerViewModel.loginFragment()
+        }
+
+        binding.resendEmailTextView.setOnClickListener {
+            registerViewModel.resendVerificationEmail()
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        registerViewModel.resetError()
     }
 
 }

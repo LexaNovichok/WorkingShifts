@@ -13,6 +13,7 @@ interface Screen {
             supportFragmentManager
                 .beginTransaction()
                 .replace(containerId, fragmentClass.getDeclaredConstructor().newInstance())
+                .addToBackStack(fragmentClass.name)
                 .commit()
         }
     }
@@ -34,6 +35,5 @@ interface Screen {
         override fun show(supportFragmentManager: FragmentManager, containerId: Int) {
             supportFragmentManager.popBackStack()
         }
-
     }
 }

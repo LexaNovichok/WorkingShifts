@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/backgr_im"
-    tools:context=".MainActivity">
+    tools:context=".main.MainActivity">
 
 
 
@@ -47,6 +47,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Email"
+            android:freezesText="true"
             android:layout_marginBottom="8dp"
             android:padding="12dp"
             android:maxWidth="450dp"
@@ -60,6 +61,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Password"
+            android:freezesText="true"
             android:layout_marginBottom="8dp"
             android:padding="12dp"
             android:maxWidth="450dp"
@@ -87,13 +89,6 @@
             android:orientation="horizontal"
             android:layout_marginBottom="16dp" >
 
-            <CheckBox
-                android:id="@+id/remember_me"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Remember me"
-                android:textColor="#FFFFFF"
-                android:buttonTint="#FFFFFF" />
 
 
         </LinearLayout>
@@ -108,7 +103,20 @@
             android:layout_marginBottom="16dp" />
 
         <TextView
-            android:id="@+id/signup"
+            android:id="@+id/resendEmailTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Did not receive an email?"
+            android:minHeight="38sp"
+            android:clickable="true"
+            android:textSize="18sp"
+            android:backgroundTint="@color/black"
+            android:textColor="#FFFFFF"
+            android:layout_marginBottom="16dp"
+            android:focusable="true" />
+
+        <TextView
+            android:id="@+id/logInTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
@@ -118,6 +126,7 @@
             android:textSize="16sp"
             android:text="Already have an account? Log In"
             android:textColor="#FFFFFF" />
+
     </LinearLayout>
 
 

@@ -7,6 +7,7 @@ import com.github.lexanovichok.workingshifts.core.InputValidator
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
 
 open class AuthViewModel(protected val authRepository: AuthRepository, protected val inputValidator: InputValidator) : ViewModel(){
     // Переменная для хранения состояния аутентификации
@@ -28,14 +29,24 @@ open class AuthViewModel(protected val authRepository: AuthRepository, protected
         _isLoggedIn.value = false
     }
 
-
     protected fun isEmailValid(email: String): Boolean {
-        if (!inputValidator.isEmailValid(email)) {
+        return inputValidator.isEmailValid(email)
+    }
+
+    protected fun checkIsFieldsCorrect(email : String, password : String) : Boolean {
+        if (!isEmailValid(email)) {
             _errorMessage.value = "Invalid email format"
+            return false
+        }
+
+        if (password.trim() == "") {
+            _errorMessage.value = "The password cannot be empty"
             return false
         }
         return true
     }
 
-
+    fun resetError() {
+        _errorMessage.value = null
+    }
 }
