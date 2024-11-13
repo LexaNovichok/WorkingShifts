@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_tasks"
+        android:title="Задания"
+        android:icon="@drawable/ic_task_foreground" />
+    <item
+        android:id="@+id/nav_workers"
+        android:icon="@drawable/ic_worker_foreground"
+        android:title="Работники" />
+    <item
+        android:id="@+id/nav_addresses"
+        android:icon="@drawable/ic_adress_foreground"
+        android:title="Адреса" />
+</menu>
