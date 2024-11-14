@@ -1,14 +1,13 @@
 package com.github.lexanovichok.workingshifts.schedule.worker.viewModel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.github.lexanovichok.workingshifts.core.ClearViewModel
-import com.github.lexanovichok.workingshifts.main.ScreenA
 import com.github.lexanovichok.workingshifts.schedule.main.NavigationF
 import com.github.lexanovichok.workingshifts.schedule.main.ScreenF
 import com.github.lexanovichok.workingshifts.schedule.userData.Worker
+import com.github.lexanovichok.workingshifts.schedule.worker.core.WorkersListLiveDataWrapper
 import com.github.lexanovichok.workingshifts.schedule.worker.model.WorkersRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
@@ -21,6 +20,7 @@ class AddWorkerViewModel(
     private val navigationF: NavigationF.Update,
     private val clear: ClearViewModel,
     private val workersRepository: WorkersRepository,
+    private val workersListLiveDataWrapper: WorkersListLiveDataWrapper.Add,
     private val dispatcher : CoroutineDispatcher = Dispatchers.IO,
     private val dispatcherMain : CoroutineDispatcher = Dispatchers.Main
 ) : ViewModel() {
@@ -30,10 +30,10 @@ class AddWorkerViewModel(
 
     private val _errorMessage = MutableLiveData<String?>()  // Для хранения ошибок
     val errorMessage : LiveData<String?> get() = _errorMessage
+
     fun addWorker(worker: Worker) {
         viewModelScope.launch(dispatcher) {
             try {
-                Log.d("SCHEDULE", "AddWorkerViewModel addWorker fun")
                 workersRepository.addWorker(worker)
             } catch (e: Exception) {
                 withContext(dispatcherMain) {

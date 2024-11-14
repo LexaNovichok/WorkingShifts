@@ -9,7 +9,11 @@
         android:id="@+id/rcView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="12dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="12dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/worker_rcview_item" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

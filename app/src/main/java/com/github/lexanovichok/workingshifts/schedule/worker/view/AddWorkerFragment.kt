@@ -30,11 +30,12 @@ class AddWorkerFragment : AbstractFragment<FragmentAddWorkerBinding>() {
         binding.saveButton.setOnClickListener {
             with (binding) {
                 val name = nameEditText.text.toString()
-                val contactInfo = contactInfoEditText.text.toString()
+                val contactInfo = contactsEditText.text.toString()
+                val description = descriptionEditText.text.toString()
 
-                if (!name.trim().isBlank()) {
-                    addWorkerViewModel.addWorker(Worker(name=name, contacts = contactInfo))
-                    Log.d("SCHEDULE", "AddWorkerViewModel saveButton")
+                if (name.trim().isNotBlank()) {
+                    addWorkerViewModel.addWorker(Worker(name=name, contacts = contactInfo, description = description))
+
                     hideKeyBoard()
                     addWorkerViewModel.comeback()
                 }

@@ -13,6 +13,7 @@ interface ScreenF {
             childFragmentManager
                 .beginTransaction()
                 .replace(containerId, fragmentClass.getDeclaredConstructor().newInstance())
+                .addToBackStack(fragmentClass.name)
                 .commit()
         }
     }

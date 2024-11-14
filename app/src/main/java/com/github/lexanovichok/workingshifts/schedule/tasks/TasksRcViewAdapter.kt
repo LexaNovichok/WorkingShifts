@@ -1,4 +1,4 @@
-package com.github.lexanovichok.workingshifts.core
+package com.github.lexanovichok.workingshifts.schedule.tasks
 
 import android.view.LayoutInflater
 import android.view.View
@@ -18,10 +18,10 @@ class TasksRcViewAdapter : RecyclerView.Adapter<TasksRcViewAdapter.ViewHolder>()
         private val binding = TaskRcviewItemBinding.bind(view)
 
         fun bind(worker : Worker, adress : Adress) = with(binding) {
-            val adressText = "${adress.city}, ${adress.street}"
+            val addressText = "${adress.city}, ${adress.street}"
 
             tvWorkerName.text = worker.name
-            tvLocation.text = adressText
+            tvLocation.text = addressText
         }
     }
 

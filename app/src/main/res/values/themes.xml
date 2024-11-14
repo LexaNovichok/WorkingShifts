@@ -7,8 +7,17 @@
         <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="android:windowTranslucentStatus">true</item> <!-- Для прозрачности статус-бара -->
         <item name="android:windowTranslucentNavigation">true</item> <!-- Для прозрачности навигационной панели -->
+
+        <!-- Цвет линии, когда EditText активен -->
+        <item name="colorControlActivated">@color/dark_blue</item>
+        <!-- Цвет подчеркивания -->
+        <item name="colorAccent">@color/white</item>
+<!--        &lt;!&ndash; Цвет линии, когда EditText не активен &ndash;&gt;-->
+<!--        <item name="colorControlNormal">@color/your_custom_color</item>-->
     </style>
 
-
     <style name="Theme.WorkingShifts" parent="Base.Theme.WorkingShifts" />
+
+
+
 </resources>

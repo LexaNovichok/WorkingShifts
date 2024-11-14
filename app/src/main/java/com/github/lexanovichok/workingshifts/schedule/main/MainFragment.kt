@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import com.github.lexanovichok.workingshifts.R
 import com.github.lexanovichok.workingshifts.core.AbstractFragment
 import com.github.lexanovichok.workingshifts.core.ProvideViewModel
@@ -36,5 +37,18 @@ class MainFragment : AbstractFragment<FragmentMainBinding>() {
                 else -> false
             }
         }
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            // Проверяем стек фрагментов внутри MainFragment
+            if (childFragmentManager.backStackEntryCount > 0) {
+                // Если в стеке есть фрагменты, удаляем верхний
+                childFragmentManager.popBackStack()
+            } else {
+                // Если стек пуст, вызываем стандартное поведение (выйти из Activity)
+                requireActivity().onBackPressed()
+            }
+        }
     }
+
+
 }

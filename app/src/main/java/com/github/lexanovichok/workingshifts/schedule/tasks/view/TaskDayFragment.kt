@@ -5,9 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.github.lexanovichok.workingshifts.core.AbstractFragment
-import com.github.lexanovichok.workingshifts.core.App
 import com.github.lexanovichok.workingshifts.core.ProvideViewModel
-import com.github.lexanovichok.workingshifts.core.TasksRcViewAdapter
+import com.github.lexanovichok.workingshifts.schedule.tasks.TasksRcViewAdapter
 import com.github.lexanovichok.workingshifts.databinding.FragmentTaskDayBinding
 import com.github.lexanovichok.workingshifts.schedule.tasks.viewModel.TaskDayViewModel
 

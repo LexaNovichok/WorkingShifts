@@ -3,7 +3,7 @@ package com.github.lexanovichok.workingshifts.schedule.main
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.github.lexanovichok.workingshifts.schedule.tasks.TasksScreenF
-import com.github.lexanovichok.workingshifts.schedule.worker.WorkersScreenF
+import com.github.lexanovichok.workingshifts.schedule.worker.core.WorkersScreenF
 
 class MainFragmentViewModel(
     private val navigationF: NavigationF.Mutable,
