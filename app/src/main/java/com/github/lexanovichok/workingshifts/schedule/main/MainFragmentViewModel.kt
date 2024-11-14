@@ -2,6 +2,7 @@ package com.github.lexanovichok.workingshifts.schedule.main
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import com.github.lexanovichok.workingshifts.schedule.address.core.AddressesScreenF
 import com.github.lexanovichok.workingshifts.schedule.tasks.TasksScreenF
 import com.github.lexanovichok.workingshifts.schedule.worker.core.WorkersScreenF
 
@@ -20,6 +21,10 @@ class MainFragmentViewModel(
 
     fun workersFragment() {
         navigationF.update(WorkersScreenF)
+    }
+
+    fun addressesFragment() {
+        navigationF.update(AddressesScreenF)
     }
 
 }

@@ -8,6 +8,10 @@ import com.github.lexanovichok.workingshifts.main.MainViewModel
 import com.github.lexanovichok.workingshifts.main.NavigationA
 import com.github.lexanovichok.workingshifts.authentication.register.RegisterViewModel
 import com.github.lexanovichok.workingshifts.authentication.resetPassword.PasswordResetViewModel
+import com.github.lexanovichok.workingshifts.schedule.address.core.AddressInfoLiveDataWrapper
+import com.github.lexanovichok.workingshifts.schedule.address.core.AddressesListLiveDataWrapper
+import com.github.lexanovichok.workingshifts.schedule.address.model.AddressRepository
+import com.github.lexanovichok.workingshifts.schedule.address.viewModel.AddressesViewModel
 import com.github.lexanovichok.workingshifts.schedule.main.MainFragmentViewModel
 import com.github.lexanovichok.workingshifts.schedule.main.NavigationF
 import com.github.lexanovichok.workingshifts.schedule.tasks.model.TaskRepository
@@ -31,13 +35,17 @@ interface ProvideViewModel {
         private val authRepository = AuthRepository()
         private val inputValidator  = InputValidator()
         private val navigationA = NavigationA.Base()
+        private val navigationF = NavigationF.Base()
 
         private val taskRepository = TaskRepository()
+
         private val workerRepository = WorkersRepository()
         private val workersListLiveDataWrapper = WorkersListLiveDataWrapper.Base()
-
-        private val navigationF = NavigationF.Base()
         private val workerInfoLiveDataWrapper = WorkerInfoLiveDataWrapper.Base()
+
+        private val addressesRepository = AddressRepository()
+        private val addressesListLiveDataWrapper = AddressesListLiveDataWrapper.Base()
+        private val addressInfoLiveDataWrapper = AddressInfoLiveDataWrapper.Base()
 
         override fun <T : ViewModel> viewModel(viewModelClass: Class<T>): T {
             return when(viewModelClass) {
@@ -54,6 +62,7 @@ interface ProvideViewModel {
                 AddWorkerViewModel::class.java -> AddWorkerViewModel(navigationF, clearViewModel, workerRepository, workersListLiveDataWrapper)
                 WorkerInfoViewModel::class.java -> WorkerInfoViewModel(navigationF, workerRepository, workerInfoLiveDataWrapper, clearViewModel)
 
+                AddressesViewModel::class.java -> AddressesViewModel(navigationF,clearViewModel, addressesRepository, addressesListLiveDataWrapper ,addressInfoLiveDataWrapper)
                 else -> throw IllegalStateException("unknown viewModelClass $viewModelClass")
             } as T
         }

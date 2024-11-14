@@ -33,6 +33,15 @@ class MainFragment : AbstractFragment<FragmentMainBinding>() {
                     mainFragmentViewModel.workersFragment()
                     true
                 }
+                R.id.nav_addresses -> {
+                    mainFragmentViewModel.addressesFragment()
+                    true
+                }
+                R.id.nav_tasks -> {
+                    mainFragmentViewModel.tasksFragment()
+                    true
+                }
+
 
                 else -> false
             }

@@ -23,6 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="4dp"
+            android:textSize="18sp"
             android:text="Имя" />
 
         <EditText
@@ -30,7 +31,7 @@
             style="@style/EditTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Name" />
+            android:layout_marginTop="8dp"/>
 
         <TextView
             style="@style/TextViewWhite"
@@ -38,15 +39,16 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="4dp"
+            android:textSize="18sp"
             android:layout_marginTop="24dp"
-            android:text="Контактная информация" />
+            android:text="Контактная информаиця" />
 
         <EditText
             android:id="@+id/contactsEditText"
             style="@style/EditTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Contacts" />
+            android:layout_marginTop="8dp"/>
 
         <TextView
             style="@style/TextViewWhite"
@@ -55,14 +57,15 @@
             android:layout_gravity="center_vertical"
             android:layout_marginStart="4dp"
             android:layout_marginTop="24dp"
-            android:text="Описание" />
+            android:textSize="18sp"
+            android:text="Дополнительная инорфмация" />
 
         <EditText
             android:id="@+id/descriptionEditText"
             style="@style/EditTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Description" />
+            android:layout_marginTop="8dp"/>
     </LinearLayout>
 
 
@@ -71,7 +74,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="18dp"
-        android:text="@string/save"
+        android:text="@string/add"
         android:layout_marginBottom="40dp"
         android:backgroundTint="@color/black"
         app:layout_constraintStart_toStartOf="parent"

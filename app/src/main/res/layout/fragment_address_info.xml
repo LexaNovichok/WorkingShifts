@@ -1,8 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/backgr_im">
@@ -37,10 +35,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="4dp"
-            android:text="Имя" />
+            android:text="Город" />
 
         <EditText
-            android:id="@+id/nameEditText"
+            android:id="@+id/cityEditText"
             style="@style/EditTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -52,10 +50,10 @@
             android:layout_gravity="center_vertical"
             android:layout_marginStart="4dp"
             android:layout_marginTop="24dp"
-            android:text="Контактная информация" />
+            android:text="Улица" />
 
         <EditText
-            android:id="@+id/contactsEditText"
+            android:id="@+id/streetEditText"
             style="@style/EditTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
@@ -67,26 +65,26 @@
             android:layout_gravity="center_vertical"
             android:layout_marginStart="4dp"
             android:layout_marginTop="24dp"
-            android:text="Описание" />
+            android:text="Дополнительная инорфмация" />
 
         <EditText
             android:id="@+id/descriptionEditText"
             style="@style/EditTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
-
     </LinearLayout>
+
 
     <Button
         android:id="@+id/saveButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
         android:layout_margin="18dp"
-        android:backgroundTint="@color/black"
         android:text="@string/save"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="40dp"
+        android:backgroundTint="@color/black"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/linearLayout" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/linearLayout"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
