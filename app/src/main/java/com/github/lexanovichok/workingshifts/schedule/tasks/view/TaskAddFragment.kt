@@ -1,6 +1,5 @@
 package com.github.lexanovichok.workingshifts.schedule.tasks.view
 
-import android.R
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Toast
+import com.github.lexanovichok.workingshifts.R
 import com.github.lexanovichok.workingshifts.core.AbstractFragment
 import com.github.lexanovichok.workingshifts.core.ProvideViewModel
 import com.github.lexanovichok.workingshifts.databinding.FragmentAddTaskBinding
@@ -37,11 +37,11 @@ class TaskAddFragment : AbstractFragment<FragmentAddTaskBinding>() {
         taskAddViewModel.workersListLiveData().observe(viewLifecycleOwner) { workersList ->
             val workerAdapter = ArrayAdapter(
                 requireContext(),
-                R.layout.simple_spinner_item,
+                R.layout.custom_dropdown_worker_item,
                 workersList.map { "${it.name} ${it.contacts}" }
             )
             Log.d("SCHEDULE", "workersList size: ${workersList.size}")
-            workerAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
+            workerAdapter.setDropDownViewResource(R.layout.custom_dropdown_worker_item)
             binding.workerSpinner.setAdapter(workerAdapter)
 
             binding.workerSpinner.setOnFocusChangeListener { _, hasFocus ->
@@ -58,11 +58,11 @@ class TaskAddFragment : AbstractFragment<FragmentAddTaskBinding>() {
         taskAddViewModel.addressesListLiveData().observe(viewLifecycleOwner) { addressesList ->
             val addressAdapter = ArrayAdapter(
                 requireContext(),
-                R.layout.simple_spinner_item,
+                R.layout.custom_dropdown_address_item,
                 addressesList.map { "${it.city} ${it.street}" }
             )
             Log.d("SCHEDULE", "addressesList size: ${addressesList.size}")
-            addressAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
+            addressAdapter.setDropDownViewResource(R.layout.custom_dropdown_address_item)
             binding.addressSpinner.setAdapter(addressAdapter)
 
             // Отображение списка сразу при получении фокуса

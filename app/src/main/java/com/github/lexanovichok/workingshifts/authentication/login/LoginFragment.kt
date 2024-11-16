@@ -6,11 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.core.widget.addTextChangedListener
 import com.github.lexanovichok.workingshifts.core.AbstractFragment
 import com.github.lexanovichok.workingshifts.core.BundleWrapper
 import com.github.lexanovichok.workingshifts.core.ProvideViewModel
 import com.github.lexanovichok.workingshifts.databinding.FragmentLoginBinding
+import com.github.lexanovichok.workingshifts.schedule.tasks.view.TasksFragment
+import kotlin.system.exitProcess
 
 class LoginFragment : AbstractFragment<FragmentLoginBinding>() {
 
@@ -66,6 +69,12 @@ class LoginFragment : AbstractFragment<FragmentLoginBinding>() {
         binding.forgotPasswordTextView.setOnClickListener {
             loginViewModel.passwordResetScreen()
         }
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                requireActivity().finish()
+            }
+        })
     }
 
     override fun onDestroyView() {

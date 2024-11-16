@@ -14,10 +14,7 @@
         <item name="android:background">@drawable/edit_text_background</item>
         <item name="android:textColorHint">@color/dark_white</item>
         <item name="android:textColor">@color/white</item>
-        <item name="android:paddingStart">12dp</item>
-        <item name="android:paddingEnd">12dp</item>
-        <item name="android:paddingTop">12dp</item>
-        <item name="android:paddingBottom">12dp</item>
+        <item name="android:padding">12dp</item>
         <item name="android:layout_marginTop">8dp</item>
     </style>
 
@@ -27,10 +24,7 @@
     </style>
 
     <style name="SpinnerStyle" parent="Widget.AppCompat.AutoCompleteTextView">
-        <item name="paddingStart">12dp</item>
-        <item name="android:paddingEnd">12dp</item>
-        <item name="android:paddingTop">12dp</item>
-        <item name="android:paddingBottom">12dp</item>
+        <item name="android:padding">12dp</item>
         <item name="android:textSize">22sp</item>
         <item name="textFillColor">@color/white</item>
         <item name="android:textColorHint">@color/dark_white</item>
@@ -45,5 +39,12 @@
         <item name="contentPaddingLeft">8dp</item>
         <item name="contentPaddingRight">8dp</item>
         <item name="cardBackgroundColor">@color/dark_blue</item>
+    </style>
+
+    <style name="EditTextAuthStyle" parent="Widget.AppCompat.EditText">
+        <item name="android:padding">12dp</item>
+        <item name="backgroundTint">@color/white</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textColorHint">@color/dark_white</item>
     </style>
 </resources>

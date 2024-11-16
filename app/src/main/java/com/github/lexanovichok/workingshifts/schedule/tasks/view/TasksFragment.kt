@@ -24,8 +24,6 @@ class TasksFragment : AbstractFragment<FragmentTasksBinding>() {
         tasksViewModel = (activity as ProvideViewModel).viewModel(TasksViewModel::class.java)
 
         initViewPager()
-
-
     }
 
     private fun initViewPager() = with(binding) {

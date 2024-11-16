@@ -24,6 +24,8 @@
             android:layout_height="wrap_content"
             style="@style/SpinnerStyle"
             android:hint="Введите работника"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/white"
             android:layout_marginTop="8dp" />
 
 
@@ -35,6 +37,8 @@
             android:id="@+id/addressSpinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/white"
             style="@style/SpinnerStyle"
             android:hint="Введите адрес"
             android:layout_marginTop="8dp" />
