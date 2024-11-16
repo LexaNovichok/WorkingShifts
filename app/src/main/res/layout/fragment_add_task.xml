@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -16,55 +17,44 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            style="@style/TextViewWhite"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="4dp"
-            android:textSize="18sp"
-            android:text="Имя" />
 
-        <EditText
-            android:id="@+id/nameEditText"
-            style="@style/EditTextStyle"
+        <AutoCompleteTextView
+            android:id="@+id/workerSpinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"/>
+            style="@style/SpinnerStyle"
+            android:hint="Введите работника"
+            android:layout_marginTop="8dp" />
 
-        <TextView
-            style="@style/TextViewWhite"
+
+        <Space
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="4dp"
-            android:textSize="18sp"
-            android:layout_marginTop="24dp"
-            android:text="Контактная информаиця" />
+            android:layout_height="28dp"/>
 
-        <EditText
-            android:id="@+id/contactsEditText"
-            style="@style/EditTextStyle"
+        <AutoCompleteTextView
+            android:id="@+id/addressSpinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"/>
+            style="@style/SpinnerStyle"
+            android:hint="Введите адрес"
+            android:layout_marginTop="8dp" />
 
         <TextView
             style="@style/TextViewWhite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
             android:layout_marginStart="4dp"
-            android:layout_marginTop="24dp"
-            android:textSize="18sp"
-            android:text="Дополнительная инорфмация" />
+            android:layout_marginTop="18dp"
+            android:textSize="22sp" />
 
         <EditText
             android:id="@+id/descriptionEditText"
             style="@style/EditTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"/>
+            android:hint="Описание"
+            android:textSize="22sp"
+            android:layout_marginTop="8dp" />
     </LinearLayout>
 
 

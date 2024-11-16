@@ -74,7 +74,7 @@ class WorkersViewModel(
 
     fun workerInfoLiveData() : LiveData<Worker> = workersInfoLiveDataWrapper.liveData()
 
-    fun updateWorkerFromRcView(worker: Worker) {
+    fun updateCurrentWorkerFromRcView(worker: Worker) {
         workersInfoLiveDataWrapper.update(worker)
     }
 

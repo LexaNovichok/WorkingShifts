@@ -11,7 +11,6 @@ import com.github.lexanovichok.workingshifts.main.NavigationA
 import com.github.lexanovichok.workingshifts.authentication.register.RegisterScreenA
 import com.github.lexanovichok.workingshifts.authentication.resetPassword.PasswordResetScreenA
 import com.github.lexanovichok.workingshifts.schedule.main.MainFragmentScreenA
-import com.github.lexanovichok.workingshifts.schedule.tasks.TasksScreenF
 import kotlinx.coroutines.launch
 
 class LoginViewModel(

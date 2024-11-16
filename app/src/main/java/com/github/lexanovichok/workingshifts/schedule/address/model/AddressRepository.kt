@@ -52,6 +52,21 @@ class AddressRepository {
         }
     }
 
+    suspend fun getAddressById(addressId: String): Address? {
+        return suspendCancellableCoroutine { continuation ->
+            addressesRef.child(addressId).addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val address = snapshot.getValue(Address::class.java)
+                    continuation.resume(address)
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    continuation.resumeWithException(Exception("Error getting worker with ID $addressId: ${error.message}"))
+                }
+            })
+        }
+    }
+
     suspend fun updateAddress(address: Address) {
         addressesRef.child(address.id).setValue(address).await()
     }

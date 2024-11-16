@@ -13,15 +13,13 @@ import kotlin.coroutines.resumeWithException
 
 class TaskRepository {
 
-    private val database = FirebaseDatabase.getInstance().reference.child("tasks")
+    private val database = FirebaseDatabase.getInstance()
+    val tasksRef = database.getReference("tasks")
 
-    suspend fun createOrUpdateTask(task: Task) {
-        database.child(task.id).setValue(task).await()
-    }
 
     suspend fun getTasks(): List<Task> {
         return suspendCancellableCoroutine { continuation ->
-            database.addValueEventListener(object : ValueEventListener {
+            tasksRef.addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     val tasks = snapshot.children.mapNotNull { it.getValue(Task::class.java) }
                     continuation.resume(tasks)  // Возвращаем результат
@@ -34,7 +32,35 @@ class TaskRepository {
         }
     }
 
+//    suspend fun getTasksWithCurrentDate() : List<Task> {
+//
+//    }
+
+    suspend fun addTask(task : Task) : Unit = suspendCancellableCoroutine { continuation ->
+        val taskId = tasksRef.push().key ?: run {
+            continuation.resumeWithException(Exception("Error generating task ID"))
+            return@suspendCancellableCoroutine
+        }
+        task.id = taskId
+
+        tasksRef.child(taskId).setValue(task)
+            .addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                Log.d("SCHEDULE", "Data stored successfully")
+                continuation.resume(Unit)  // Возвращаем успешное завершение
+            } else {
+                val exception = task.exception ?: Exception("Unknown error during setValue")
+                Log.d("SCHEDULE", "Error: ${exception.message}")
+                continuation.resumeWithException(exception)  // Возвращаем исключение
+            }
+        }
+    }
+
+    suspend fun updateTask(task : Task) {
+        tasksRef.child(task.id).setValue(task).await()
+    }
+
     suspend fun deleteTask(taskId: String) {
-        database.child(taskId).removeValue().await()
+        tasksRef.child(taskId).removeValue().await()
     }
 }

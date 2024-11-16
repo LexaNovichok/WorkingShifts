@@ -2,16 +2,15 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/backgr_im">
+    android:layout_height="match_parent">
 
     <ImageButton
         android:id="@+id/deleteButton"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:src="@drawable/trash"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginTop="12dp"
         android:background="@android:color/transparent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"

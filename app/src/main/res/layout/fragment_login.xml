@@ -3,10 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/backgr_im"
     tools:context=".main.MainActivity">
-
-
 
     <!-- Login Form -->
     <LinearLayout

@@ -26,11 +26,15 @@ class TasksFragment : AbstractFragment<FragmentTasksBinding>() {
         initViewPager()
 
 
-
     }
 
     private fun initViewPager() = with(binding) {
         val adapter = TasksPagerAdapter(this@TasksFragment)
         viewPager.adapter = adapter
+        viewPager.setCurrentItem(3, false)
+    }
+
+    fun scrollToCurrentDate() {
+        binding.viewPager.setCurrentItem(3, true)
     }
 }

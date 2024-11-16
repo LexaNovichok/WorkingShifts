@@ -25,4 +25,25 @@
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">18sp</item>
     </style>
+
+    <style name="SpinnerStyle" parent="Widget.AppCompat.AutoCompleteTextView">
+        <item name="paddingStart">12dp</item>
+        <item name="android:paddingEnd">12dp</item>
+        <item name="android:paddingTop">12dp</item>
+        <item name="android:paddingBottom">12dp</item>
+        <item name="android:textSize">22sp</item>
+        <item name="textFillColor">@color/white</item>
+        <item name="android:textColorHint">@color/dark_white</item>
+    </style>
+    
+    <style name="MyCardViewStyle" parent="Widget.MaterialComponents.CardView">
+        <item name="cardCornerRadius">8dp</item>
+        <item name="cardElevation">2dp</item>
+        <item name="cardMaxElevation">4dp</item>
+        <item name="contentPaddingBottom">12dp</item>
+        <item name="contentPaddingTop">12dp</item>
+        <item name="contentPaddingLeft">8dp</item>
+        <item name="contentPaddingRight">8dp</item>
+        <item name="cardBackgroundColor">@color/dark_blue</item>
+    </style>
 </resources>

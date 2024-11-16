@@ -16,7 +16,7 @@ import kotlin.coroutines.resumeWithException
 class WorkersRepository {
 
     private val database = FirebaseDatabase.getInstance()
-    val workersRef = database.getReference("worker")
+    val workersRef = database.getReference("workers")
 
     suspend fun addWorker(worker: Worker): Unit = suspendCancellableCoroutine { continuation ->
         val workerId = workersRef.push().key ?: run {
@@ -53,6 +53,22 @@ class WorkersRepository {
             })
         }
     }
+
+    suspend fun getWorkerById(workerId: String): Worker? {
+        return suspendCancellableCoroutine { continuation ->
+            workersRef.child(workerId).addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val worker = snapshot.getValue(Worker::class.java)
+                    continuation.resume(worker)
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    continuation.resumeWithException(Exception("Error getting worker with ID $workerId: ${error.message}"))
+                }
+            })
+        }
+    }
+
 
     suspend fun updateWorker(worker: Worker) {
         workersRef.child(worker.id).setValue(worker).await()

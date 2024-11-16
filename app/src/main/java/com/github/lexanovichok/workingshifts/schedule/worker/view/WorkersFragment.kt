@@ -47,7 +47,7 @@ class WorkersFragment : AbstractFragment<FragmentWorkersBinding>() {
     private fun initRcView() = with(binding) {
         rcViewAdapter = WorkersRcViewAdapter(object : WorkersRcViewAdapter.OnWorkerClickListener {
             override fun onClick(worker: Worker) {
-                workersViewModel.updateWorkerFromRcView(worker)
+                workersViewModel.updateCurrentWorkerFromRcView(worker)
                 workersViewModel.workerInfoFragment()
             }
 

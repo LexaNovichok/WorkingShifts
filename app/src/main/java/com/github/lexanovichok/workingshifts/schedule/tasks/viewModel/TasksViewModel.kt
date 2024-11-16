@@ -13,8 +13,6 @@ class TasksViewModel(
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO,
     private val dispatcherMain: CoroutineDispatcher = Dispatchers.Main.immediate,
 ) : ViewModel() {
-    fun workersFragment() {
-        navigationF.update(WorkersScreenF)
-    }
+
 
 }

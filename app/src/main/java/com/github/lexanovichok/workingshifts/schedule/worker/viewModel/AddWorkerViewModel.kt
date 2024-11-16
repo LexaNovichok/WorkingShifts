@@ -20,7 +20,6 @@ class AddWorkerViewModel(
     private val navigationF: NavigationF.Update,
     private val clear: ClearViewModel,
     private val workersRepository: WorkersRepository,
-    private val workersListLiveDataWrapper: WorkersListLiveDataWrapper.Add,
     private val dispatcher : CoroutineDispatcher = Dispatchers.IO,
     private val dispatcherMain : CoroutineDispatcher = Dispatchers.Main
 ) : ViewModel() {

@@ -5,8 +5,8 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
-        <item name="android:windowTranslucentStatus">true</item> <!-- Для прозрачности статус-бара -->
-        <item name="android:windowTranslucentNavigation">true</item> <!-- Для прозрачности навигационной панели -->
+        <item name="android:windowTranslucentStatus">false</item> <!-- Для прозрачности статус-бара -->
+        <item name="android:windowTranslucentNavigation">false</item> <!-- Для прозрачности навигационной панели -->
 
         <!-- Цвет линии, когда EditText активен -->
         <item name="colorControlActivated">@color/dark_blue</item>

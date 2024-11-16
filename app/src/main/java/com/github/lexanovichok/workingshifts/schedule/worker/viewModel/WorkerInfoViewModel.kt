@@ -50,7 +50,7 @@ class WorkerInfoViewModel(
     fun workerInfoLiveData() : LiveData<Worker> = workerInfoLiveDataWrapper.liveData()
 
 
-    fun comeback() {
+    private fun comeback() {
         navigationF.update(ScreenF.Pop)
         clear.clearViewModel(WorkerInfoViewModel::class.java)
     }
