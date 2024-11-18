@@ -2,6 +2,7 @@ package com.github.lexanovichok.workingshifts.schedule.address.view
 
 import android.graphics.Canvas
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,6 +24,9 @@ class AddressesFragment : AbstractFragment<FragmentAddressesBinding>() {
     private lateinit var viewModel : AddressesViewModel
     private lateinit var rcViewAdapter : AddressesRcViewAdapter
 
+    init {
+        Log.d("LC", "AddressesFragment init")
+    }
     override fun bind(inflater: LayoutInflater, container: ViewGroup?): FragmentAddressesBinding =
         FragmentAddressesBinding.inflate(inflater, container, false)
 
@@ -32,6 +36,7 @@ class AddressesFragment : AbstractFragment<FragmentAddressesBinding>() {
         viewModel = (activity as ProvideViewModel).viewModel(AddressesViewModel::class.java)
         initRcView()
 
+        Log.d("LC", "AddressesFragment onViewCreated")
         binding.addAddressButton.setOnClickListener {
             viewModel.addAddressFragment()
         }

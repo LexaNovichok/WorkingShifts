@@ -31,6 +31,10 @@ class AddressesViewModel(
     private val dispatcherMain : CoroutineDispatcher = Dispatchers.Main
 ) : ViewModel() {
 
+    init {
+        Log.d("LC", "AddressesViewModel init")
+    }
+
     private val viewModelScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
 
     init {

@@ -30,6 +30,10 @@ class TaskDayViewModel(
     private val dispatcherMain: CoroutineDispatcher = Dispatchers.Main.immediate,
 ) : ViewModel() {
 
+    init {
+        Log.d("LC", "TaskDayViewModel init")
+    }
+
     private val _errorMessage = MutableLiveData<String?>()  // Для хранения ошибок
     val errorMessage : LiveData<String?> get() = _errorMessage
 

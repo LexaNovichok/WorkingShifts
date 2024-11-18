@@ -27,6 +27,9 @@ class TaskDayFragment : AbstractFragment<FragmentTaskDayBinding>() {
     override fun bind(inflater: LayoutInflater, container: ViewGroup?): FragmentTaskDayBinding =
         FragmentTaskDayBinding.inflate(inflater, container, false)
 
+    init {
+        Log.d("LC", "MainTaskDayFragmentActivity init")
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 

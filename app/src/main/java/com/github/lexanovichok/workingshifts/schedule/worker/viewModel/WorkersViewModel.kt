@@ -32,6 +32,9 @@ class WorkersViewModel(
     private val dispatcherMain : CoroutineDispatcher = Dispatchers.Main
 ) : ViewModel() {
 
+    init {
+        Log.d("LC", "WorkersViewModel: init")
+    }
     private val viewModelScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
 
     init {

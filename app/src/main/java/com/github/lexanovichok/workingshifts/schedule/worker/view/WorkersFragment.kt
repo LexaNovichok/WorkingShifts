@@ -21,11 +21,18 @@ class WorkersFragment : AbstractFragment<FragmentWorkersBinding>() {
 
     private lateinit var workersViewModel : WorkersViewModel
     private lateinit var rcViewAdapter : WorkersRcViewAdapter
+
+    init {
+        Log.d("LC", "WorkersFragment: init")
+    }
+
     override fun bind(inflater: LayoutInflater, container: ViewGroup?): FragmentWorkersBinding =
         FragmentWorkersBinding.inflate(inflater, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        Log.d("LC", "WorkersFragment: onViewCreated")
 
         workersViewModel = (activity as ProvideViewModel).viewModel(WorkersViewModel::class.java)
         Log.d("SCHEDULE", "WorkersFragment onViewCreated")

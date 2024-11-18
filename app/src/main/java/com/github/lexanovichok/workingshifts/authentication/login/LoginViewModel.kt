@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.github.lexanovichok.workingshifts.authentication.LoggedInLiveDataWrapper
 import com.github.lexanovichok.workingshifts.authentication.auth.AuthRepository
 import com.github.lexanovichok.workingshifts.authentication.auth.AuthViewModel
 import com.github.lexanovichok.workingshifts.core.InputValidator
@@ -15,6 +16,7 @@ import kotlinx.coroutines.launch
 
 class LoginViewModel(
     private val navigationA: NavigationA.Mutable,
+    private val loggedInLiveDataWrapper : LoggedInLiveDataWrapper.Mutable,
     repository : AuthRepository,
     inputValidator: InputValidator
 ) : AuthViewModel(repository, inputValidator) {
@@ -26,11 +28,22 @@ class LoginViewModel(
         viewModelScope.launch {
             if (authRepository.isLoggedIn() && authRepository.isEmailVerified()) {
                 navigationA.update(MainFragmentScreenA)
+                loggedInLiveDataWrapper.update(true)
+                Log.d("LC", "LoginViewModel init: update to MainFragmentScreenA")
                 Log.d("AUTH", "isLoggedIn: $isLoggedIn, isEmailVerified: ${authRepository.isEmailVerified()}")
             }
         }
     }
 
+//    fun checkIsLoggedIn() : Boolean {
+//        val isLoggedIn
+//        viewModelScope.launch {
+//            if (authRepository.isLoggedIn() && authRepository.isEmailVerified()) {
+//                return true
+//            }
+//        }
+//        return false
+//    }
     // Про аутентификацию
     fun login(email: String, password: String) {
 
@@ -47,7 +60,6 @@ class LoginViewModel(
         }
     }
 
-    fun isLoggedIn() : Boolean = authRepository.isLoggedIn()
 
     fun checkEmailVerification() {
         viewModelScope.launch {

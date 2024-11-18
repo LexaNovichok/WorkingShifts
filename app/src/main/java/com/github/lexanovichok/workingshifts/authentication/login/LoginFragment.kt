@@ -18,7 +18,10 @@ import kotlin.system.exitProcess
 class LoginFragment : AbstractFragment<FragmentLoginBinding>() {
 
     private lateinit var loginViewModel : LoginViewModel
-    private var userDataList : ArrayList<String> = arrayListOf("", "")
+
+    init {
+        Log.d("LC", "LoginFragment init")
+    }
     override fun bind(inflater: LayoutInflater, container: ViewGroup?): FragmentLoginBinding =
         FragmentLoginBinding.inflate(inflater, container, false)
 
@@ -26,6 +29,7 @@ class LoginFragment : AbstractFragment<FragmentLoginBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        Log.d("LC", "LoginFragment onViewCreated")
         loginViewModel = (activity as ProvideViewModel).viewModel(LoginViewModel::class.java)
 
         loginViewModel.init()
@@ -47,8 +51,9 @@ class LoginFragment : AbstractFragment<FragmentLoginBinding>() {
                 loginViewModel.isEmailVerified.observe(viewLifecycleOwner) { isVerified ->
                     if (isVerified == true) {
                         loginViewModel.mainFragment()
+                        Log.d("LC", "LoginFragment init: update to MainFragmentScreenA")
                     } else {
-                        Toast.makeText(requireContext(), "Please verify your email first.", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), "Please verify your email first", Toast.LENGTH_SHORT).show()
                     }
                 }
             }

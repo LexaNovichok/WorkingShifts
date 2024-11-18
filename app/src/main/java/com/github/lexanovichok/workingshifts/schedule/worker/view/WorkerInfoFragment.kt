@@ -1,6 +1,7 @@
 package com.github.lexanovichok.workingshifts.schedule.worker.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,11 +15,17 @@ import kotlin.random.Random
 class WorkerInfoFragment : AbstractFragment<FragmentWorkerInfoBinding>() {
 
     private lateinit var workerInfoViewModel: WorkerInfoViewModel
+
+    init {
+        Log.d("LC", "WorkerInfoFragment: init")
+    }
     override fun bind(inflater: LayoutInflater, container: ViewGroup?): FragmentWorkerInfoBinding =
         FragmentWorkerInfoBinding.inflate(inflater, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        Log.d("LC", "WorkerInfoFragment: onViewCreated")
 
         workerInfoViewModel = (activity as ProvideViewModel).viewModel(WorkerInfoViewModel::class.java)
 

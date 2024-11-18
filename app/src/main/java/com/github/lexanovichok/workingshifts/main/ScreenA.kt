@@ -30,6 +30,15 @@ interface ScreenA {
         }
     }
 
+    abstract class ReplaceMain(private val fragmentClass: Class<out Fragment>) : ScreenA {
+
+        override fun show(supportFragmentManager: FragmentManager, containerId: Int) {
+            supportFragmentManager
+                .beginTransaction()
+                .replace(containerId, fragmentClass.getDeclaredConstructor().newInstance())
+                .commit()
+        }
+    }
 
     object Pop : ScreenA {
         override fun show(supportFragmentManager: FragmentManager, containerId: Int) {

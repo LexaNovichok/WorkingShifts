@@ -1,49 +1,84 @@
 package com.github.lexanovichok.workingshifts.schedule.main
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
+import androidx.core.view.GravityCompat
 import com.github.lexanovichok.workingshifts.R
 import com.github.lexanovichok.workingshifts.core.AbstractFragment
 import com.github.lexanovichok.workingshifts.core.ProvideViewModel
 import com.github.lexanovichok.workingshifts.databinding.FragmentMainBinding
+import com.github.lexanovichok.workingshifts.schedule.address.core.AddressesScreenF
+import com.github.lexanovichok.workingshifts.schedule.address.view.AddressesFragment
+import com.github.lexanovichok.workingshifts.schedule.tasks.core.TasksScreenF
+import com.github.lexanovichok.workingshifts.schedule.tasks.view.TasksFragment
+import com.github.lexanovichok.workingshifts.schedule.worker.core.WorkersScreenF
+import com.github.lexanovichok.workingshifts.schedule.worker.view.WorkersFragment
 
 class MainFragment : AbstractFragment<FragmentMainBinding>() {
 
-    private lateinit var mainFragmentViewModel : MainFragmentViewModel
+    private lateinit var mainFragmentViewModel: MainFragmentViewModel
+
+    init {
+        Log.d("LC", "MainFragment init")
+    }
     override fun bind(inflater: LayoutInflater, container: ViewGroup?): FragmentMainBinding =
         FragmentMainBinding.inflate(inflater, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        mainFragmentViewModel = (activity as ProvideViewModel).viewModel(MainFragmentViewModel::class.java)
+        Log.d("LC", "MainFragment: onViewCreated")
+
+        mainFragmentViewModel =
+            (activity as ProvideViewModel).viewModel(MainFragmentViewModel::class.java)
+
+        val selectedItemId = savedInstanceState?.getInt("selected_item_id") ?: R.id.nav_tasks
+        binding.bottomNavigationView.selectedItemId = selectedItemId
+        Log.d("Bundle", "MainFragment restoreState: $selectedItemId")
 
         mainFragmentViewModel.liveData().observe(viewLifecycleOwner) { screen ->
             screen.show(childFragmentManager, binding.content.id)
+            //Log.d("LC", "MainFragment navigationF screen changes: $screen")
         }
 
-        mainFragmentViewModel.init()
+        if (savedInstanceState == null) {
+            mainFragmentViewModel.init(true)
+        }
 
-        binding.bottomNavigationView.setOnItemSelectedListener { item->
-            when(item.itemId) {
+        binding.bottomNavigationView.setOnItemSelectedListener { item ->
+            when (item.itemId) {
                 R.id.nav_workers -> {
                     mainFragmentViewModel.workersFragment()
                     true
                 }
+
                 R.id.nav_addresses -> {
                     mainFragmentViewModel.addressesFragment()
                     true
                 }
+
                 R.id.nav_tasks -> {
                     mainFragmentViewModel.tasksFragment()
                     true
                 }
 
-
                 else -> false
+            }
+        }
+
+        binding.navigationView.setNavigationItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.nav_profile -> {
+                    mainFragmentViewModel.tasksHistoryFragment()
+                    true
+                }
+                else -> false
+            }.also {
+                binding.drawerLayout.closeDrawer(GravityCompat.START)
             }
         }
 
@@ -58,6 +93,13 @@ class MainFragment : AbstractFragment<FragmentMainBinding>() {
             }
         }
     }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt("selected_item_id", binding.bottomNavigationView.selectedItemId)
+        Log.d("Bundle", "MainFragment onSaveInstanceState: ${binding.bottomNavigationView.selectedItemId}")
+    }
+
 
 
 }

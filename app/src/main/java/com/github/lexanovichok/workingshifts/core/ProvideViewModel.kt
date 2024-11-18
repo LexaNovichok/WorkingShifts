@@ -2,6 +2,7 @@ package com.github.lexanovichok.workingshifts.core
 
 import com.github.lexanovichok.workingshifts.authentication.auth.AuthViewModel
 import androidx.lifecycle.ViewModel
+import com.github.lexanovichok.workingshifts.authentication.LoggedInLiveDataWrapper
 import com.github.lexanovichok.workingshifts.authentication.auth.AuthRepository
 import com.github.lexanovichok.workingshifts.authentication.login.LoginViewModel
 import com.github.lexanovichok.workingshifts.main.MainViewModel
@@ -55,11 +56,13 @@ interface ProvideViewModel {
         private val addressesListLiveDataWrapper = AddressesListLiveDataWrapper.Base()
         private val addressInfoLiveDataWrapper = AddressInfoLiveDataWrapper.Base()
 
+        private val loggedInLiveDataWrapper = LoggedInLiveDataWrapper.Base()
+
         override fun <T : ViewModel> viewModel(viewModelClass: Class<T>): T {
             return when(viewModelClass) {
-                MainViewModel::class.java -> MainViewModel(navigationA)
+                MainViewModel::class.java -> MainViewModel(navigationA, loggedInLiveDataWrapper)
                 AuthViewModel::class.java -> AuthViewModel(authRepository, inputValidator)
-                LoginViewModel::class.java -> LoginViewModel(navigationA, authRepository, inputValidator)
+                LoginViewModel::class.java -> LoginViewModel(navigationA, loggedInLiveDataWrapper, authRepository, inputValidator)
                 RegisterViewModel::class.java -> RegisterViewModel(navigationA, authRepository, inputValidator)
                 PasswordResetViewModel::class.java -> PasswordResetViewModel(navigationA, clearViewModel, authRepository, inputValidator)
 

@@ -18,12 +18,16 @@ class AddWorkerFragment : AbstractFragment<FragmentAddWorkerBinding>() {
 
     private lateinit var addWorkerViewModel: AddWorkerViewModel
 
+    init {
+        Log.d("LC", "AddWorkerFragment: init")
+    }
     override fun bind(inflater: LayoutInflater, container: ViewGroup?): FragmentAddWorkerBinding =
         FragmentAddWorkerBinding.inflate(inflater, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        Log.d("LC", "AddWorkerFragment: onViewCreated")
         addWorkerViewModel = (activity as ProvideViewModel).viewModel(AddWorkerViewModel::class.java)
 
 
@@ -44,6 +48,6 @@ class AddWorkerFragment : AbstractFragment<FragmentAddWorkerBinding>() {
                 }
             }
         }
-
     }
+
 }

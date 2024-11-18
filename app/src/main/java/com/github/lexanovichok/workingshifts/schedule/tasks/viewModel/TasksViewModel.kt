@@ -1,5 +1,6 @@
 package com.github.lexanovichok.workingshifts.schedule.tasks.viewModel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.github.lexanovichok.workingshifts.schedule.main.NavigationF
 import com.github.lexanovichok.workingshifts.schedule.tasks.model.TaskRepository
@@ -14,5 +15,7 @@ class TasksViewModel(
     private val dispatcherMain: CoroutineDispatcher = Dispatchers.Main.immediate,
 ) : ViewModel() {
 
-
+    init {
+        Log.d("LC", "TasksViewModel init")
+    }
 }
