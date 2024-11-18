@@ -14,7 +14,6 @@ import com.github.lexanovichok.workingshifts.core.ProvideViewModel
 import com.github.lexanovichok.workingshifts.databinding.FragmentAddTaskBinding
 import com.github.lexanovichok.workingshifts.schedule.tasks.viewModel.TaskAddViewModel
 import com.github.lexanovichok.workingshifts.schedule.tasks.viewModel.TaskDayViewModel
-import com.github.lexanovichok.workingshifts.schedule.tasks.viewModel.TasksViewModel
 import com.github.lexanovichok.workingshifts.schedule.userData.Task
 
 

@@ -1,12 +1,16 @@
 package com.github.lexanovichok.workingshifts.schedule.main
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.core.view.GravityCompat
+import androidx.fragment.app.FragmentManager
 import com.github.lexanovichok.workingshifts.R
 import com.github.lexanovichok.workingshifts.core.AbstractFragment
 import com.github.lexanovichok.workingshifts.core.ProvideViewModel
@@ -42,7 +46,7 @@ class MainFragment : AbstractFragment<FragmentMainBinding>() {
 
         mainFragmentViewModel.liveData().observe(viewLifecycleOwner) { screen ->
             screen.show(childFragmentManager, binding.content.id)
-            //Log.d("LC", "MainFragment navigationF screen changes: $screen")
+            //Log.d("NAVIGATION", "MainFragment livedata screen: $screen")
         }
 
         if (savedInstanceState == null) {
@@ -72,7 +76,7 @@ class MainFragment : AbstractFragment<FragmentMainBinding>() {
 
         binding.navigationView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
-                R.id.nav_profile -> {
+                R.id.nav_history -> {
                     mainFragmentViewModel.tasksHistoryFragment()
                     true
                 }
@@ -80,6 +84,20 @@ class MainFragment : AbstractFragment<FragmentMainBinding>() {
             }.also {
                 binding.drawerLayout.closeDrawer(GravityCompat.START)
             }
+        }
+
+        val logoutClickable = binding.navigationView.findViewById<LinearLayout>(R.id.logoutClickable)
+        logoutClickable.setOnClickListener {
+            mainFragmentViewModel.logout()
+            Toast.makeText(activity, "Вы вышли из аккаунта", Toast.LENGTH_SHORT).show()
+
+            val intent = requireActivity().intent
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+            requireActivity().finish() // Закрываем текущую активность
+            startActivity(intent) // Перезапускаем
+
+            binding.drawerLayout.closeDrawer(GravityCompat.START)
+
         }
 
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {

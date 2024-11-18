@@ -1,5 +1,6 @@
 package com.github.lexanovichok.workingshifts.schedule.worker.viewModel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -59,6 +60,7 @@ class AddWorkerViewModel(
 
     fun comeback() {
         navigationF.update(ScreenF.Pop)
+        Log.d("NAVIGATION", "AddWorkerViewModel update to: ScreenF.Pop")
         clear.clearViewModel(AddWorkerViewModel::class.java)
     }
 

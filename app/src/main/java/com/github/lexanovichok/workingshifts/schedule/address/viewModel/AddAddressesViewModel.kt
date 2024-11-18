@@ -1,5 +1,6 @@
 package com.github.lexanovichok.workingshifts.schedule.address.viewModel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -42,6 +43,7 @@ class AddAddressesViewModel(
 
     fun comeback() {
         navigationF.update(ScreenF.Pop)
+        Log.d("NAVIGATION", "AddAddressesViewModel update to: ScreenF.Pop")
         clear.clearViewModel(AddAddressesViewModel::class.java)
     }
 }

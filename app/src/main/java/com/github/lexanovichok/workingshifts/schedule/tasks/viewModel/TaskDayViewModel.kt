@@ -30,9 +30,6 @@ class TaskDayViewModel(
     private val dispatcherMain: CoroutineDispatcher = Dispatchers.Main.immediate,
 ) : ViewModel() {
 
-    init {
-        Log.d("LC", "TaskDayViewModel init")
-    }
 
     private val _errorMessage = MutableLiveData<String?>()  // Для хранения ошибок
     val errorMessage : LiveData<String?> get() = _errorMessage
@@ -98,10 +95,12 @@ class TaskDayViewModel(
 
     fun addTaskFragment() {
         navigationF.update(TaskAddScreen)
+        Log.d("NAVIGATION", "TaskDayViewModel update to: TaskAddScreen")
     }
 
     fun infoTaskFragment() {
         navigationF.update(TaskInfoScreenF)
+        Log.d("NAVIGATION", "TaskDayViewModel update to: TaskInfoScreenF")
     }
 
 }

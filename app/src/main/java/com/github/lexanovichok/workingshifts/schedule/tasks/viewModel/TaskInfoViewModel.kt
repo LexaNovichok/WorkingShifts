@@ -111,15 +111,18 @@ class TaskInfoViewModel(
 
     fun workerInfoFragment() {
         navigationF.update(WorkerInfoScreenF)
+        Log.d("NAVIGATION", "TaskInfoViewModel update to: WorkerInfoScreenF")
     }
 
     fun addressInfoFragment() {
         navigationF.update(AddressInfoScreenF)
+        Log.d("NAVIGATION", "TaskInfoViewModel update to: AddressInfoScreenF")
     }
 
     private fun comeback() {
         navigationF.update(ScreenF.Pop)
         clear.clearViewModel(TaskInfoViewModel::class.java)
+        Log.d("NAVIGATION", "TaskInfoViewModel update to: ScreenF.Pop")
     }
 
 }

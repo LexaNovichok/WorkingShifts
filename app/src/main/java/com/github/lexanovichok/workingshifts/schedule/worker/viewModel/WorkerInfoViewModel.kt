@@ -52,6 +52,7 @@ class WorkerInfoViewModel(
 
     private fun comeback() {
         navigationF.update(ScreenF.Pop)
+        Log.d("NAVIGATION", "WorkerInfoViewModel update to: ScreenF.Pop")
         clear.clearViewModel(WorkerInfoViewModel::class.java)
     }
 }

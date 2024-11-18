@@ -92,14 +92,17 @@ class WorkersViewModel(
 
     fun addWorkerFragment() {
         navigationF.update(AddWorkerScreenF)
+        Log.d("NAVIGATION", "WorkersViewModel update to: AddWorkerScreenF")
     }
 
     fun workerInfoFragment() {
         navigationF.update(WorkerInfoScreenF)
+        Log.d("NAVIGATION", "WorkersViewModel update to: WorkerInfoScreenF")
     }
 
     fun comeback() {
         navigationF.update(ScreenF.Pop)
+        Log.d("NAVIGATION", "WorkersViewModel update to: ScreenF.Pop")
         clear.clearViewModel(AddWorkerViewModel::class.java)
     }
 

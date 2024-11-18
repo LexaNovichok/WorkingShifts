@@ -1,5 +1,6 @@
 package com.github.lexanovichok.workingshifts.authentication.resetPassword
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.github.lexanovichok.workingshifts.authentication.auth.AuthRepository
@@ -43,6 +44,7 @@ class PasswordResetViewModel(
 
     private fun comeback() {
         navigationA.update(ScreenA.Pop)
+        Log.d("NAVIGATION", "PasswordResetViewModel update to: ScreenA.Pop")
         clear.clearViewModel(PasswordResetViewModel::class.java)
     }
 

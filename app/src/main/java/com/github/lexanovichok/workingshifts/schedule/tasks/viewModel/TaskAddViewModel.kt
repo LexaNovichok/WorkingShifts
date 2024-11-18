@@ -80,5 +80,6 @@ class TaskAddViewModel(
     fun comeback() {
         navigationF.update(ScreenF.Pop)
         clear.clearViewModel(TaskAddViewModel::class.java)
+        Log.d("NAVIGATION", "TaskAddViewModel update to: ScreenF.Pop")
     }
 }

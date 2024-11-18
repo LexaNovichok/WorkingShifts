@@ -13,12 +13,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.github.lexanovichok.workingshifts.R
 import com.github.lexanovichok.workingshifts.core.AbstractFragment
 import com.github.lexanovichok.workingshifts.core.ProvideViewModel
-import com.github.lexanovichok.workingshifts.schedule.tasks.core.TasksRcViewAdapter
+import com.github.lexanovichok.workingshifts.schedule.tasks.adapter.TasksRcViewAdapter
 import com.github.lexanovichok.workingshifts.databinding.FragmentTaskDayBinding
 import com.github.lexanovichok.workingshifts.schedule.tasks.viewModel.TaskDayViewModel
-import com.github.lexanovichok.workingshifts.schedule.userData.Address
 import com.github.lexanovichok.workingshifts.schedule.userData.Task
-import com.github.lexanovichok.workingshifts.schedule.userData.Worker
 
 class TaskDayFragment : AbstractFragment<FragmentTaskDayBinding>() {
 

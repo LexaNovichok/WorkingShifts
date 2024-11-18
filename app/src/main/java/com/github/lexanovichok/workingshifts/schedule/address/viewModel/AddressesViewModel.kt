@@ -69,9 +69,11 @@ class AddressesViewModel(
 
     fun addAddressFragment() {
         navigationF.update(AddAddressesScreenF)
+        Log.d("NAVIGATION", "AddressesViewModel update to: AddAddressesScreenF")
     }
 
     fun addressInfoFragment() {
         navigationF.update(AddressInfoScreenF)
+        Log.d("NAVIGATION", "AddressesViewModel update to: AddressInfoScreenF")
     }
 }

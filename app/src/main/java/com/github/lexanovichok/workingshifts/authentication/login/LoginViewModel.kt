@@ -12,6 +12,7 @@ import com.github.lexanovichok.workingshifts.main.NavigationA
 import com.github.lexanovichok.workingshifts.authentication.register.RegisterScreenA
 import com.github.lexanovichok.workingshifts.authentication.resetPassword.PasswordResetScreenA
 import com.github.lexanovichok.workingshifts.schedule.main.MainFragmentScreenA
+import com.google.firebase.FirebaseNetworkException
 import kotlinx.coroutines.launch
 
 class LoginViewModel(
@@ -26,11 +27,20 @@ class LoginViewModel(
 
     fun init() {
         viewModelScope.launch {
-            if (authRepository.isLoggedIn() && authRepository.isEmailVerified()) {
-                navigationA.update(MainFragmentScreenA)
-                loggedInLiveDataWrapper.update(true)
-                Log.d("LC", "LoginViewModel init: update to MainFragmentScreenA")
-                Log.d("AUTH", "isLoggedIn: $isLoggedIn, isEmailVerified: ${authRepository.isEmailVerified()}")
+            try {
+                if (authRepository.isLoggedIn() && authRepository.isEmailVerified()) {
+                    navigationA.update(MainFragmentScreenA)
+                    loggedInLiveDataWrapper.update(true)
+                    Log.d("AUTH", "Login successful: isLoggedIn = true, isEmailVerified = true")
+                } else {
+                    Log.d("AUTH", "User is not logged in or email not verified")
+                }
+            } catch (e: FirebaseNetworkException) {
+                Log.e("NETWORK", "Network error: ${e.message}")
+                _errorMessage.postValue("Network error. Please check your connection.")
+            } catch (e: Exception) {
+                Log.e("ERROR", "Unexpected error: ${e.message}")
+                _errorMessage.postValue("An unexpected error occurred. Please try again.")
             }
         }
     }
@@ -44,6 +54,7 @@ class LoginViewModel(
 //        }
 //        return false
 //    }
+
     // Про аутентификацию
     fun login(email: String, password: String) {
 
@@ -83,14 +94,17 @@ class LoginViewModel(
     // Про навигацию
     fun mainFragment() {
         navigationA.update(MainFragmentScreenA)
+        Log.d("NAVIGATION", "LoginViewModel update to: MainFragmentScreenA")
     }
 
     fun registerFragment() {
         navigationA.update(RegisterScreenA)
+        Log.d("NAVIGATION", "LoginViewModel update to: RegisterScreenA")
     }
 
     fun passwordResetScreen() {
         navigationA.update(PasswordResetScreenA)
+        Log.d("NAVIGATION", "LoginViewModel update to: PasswordResetScreenA")
     }
 
     companion object {

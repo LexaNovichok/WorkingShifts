@@ -19,11 +19,12 @@ import com.github.lexanovichok.workingshifts.schedule.main.MainFragmentViewModel
 import com.github.lexanovichok.workingshifts.schedule.main.NavigationF
 import com.github.lexanovichok.workingshifts.schedule.tasks.core.TaskInfoLiveDataWrapper
 import com.github.lexanovichok.workingshifts.schedule.tasks.core.TaskListLiveDataWrapper
+import com.github.lexanovichok.workingshifts.schedule.tasks.core.TasksHistoryLiveDataWrapper
 import com.github.lexanovichok.workingshifts.schedule.tasks.model.TaskRepository
 import com.github.lexanovichok.workingshifts.schedule.tasks.viewModel.TaskAddViewModel
 import com.github.lexanovichok.workingshifts.schedule.tasks.viewModel.TaskDayViewModel
+import com.github.lexanovichok.workingshifts.schedule.tasks.viewModel.TaskHistoryViewModel
 import com.github.lexanovichok.workingshifts.schedule.tasks.viewModel.TaskInfoViewModel
-import com.github.lexanovichok.workingshifts.schedule.tasks.viewModel.TasksViewModel
 import com.github.lexanovichok.workingshifts.schedule.worker.core.WorkerInfoLiveDataWrapper
 import com.github.lexanovichok.workingshifts.schedule.worker.core.WorkersListLiveDataWrapper
 import com.github.lexanovichok.workingshifts.schedule.worker.model.WorkersRepository
@@ -47,6 +48,7 @@ interface ProvideViewModel {
         private val taskRepository = TaskRepository()
         private val taskListLiveDataWrapper = TaskListLiveDataWrapper.Base()
         private val taskInfoLiveDataWrapper = TaskInfoLiveDataWrapper.Base()
+        private val tasksHistoryLiveDataWrapper = TasksHistoryLiveDataWrapper.Base()
 
         private val workerRepository = WorkersRepository()
         private val workersListLiveDataWrapper = WorkersListLiveDataWrapper.Base()
@@ -66,12 +68,12 @@ interface ProvideViewModel {
                 RegisterViewModel::class.java -> RegisterViewModel(navigationA, authRepository, inputValidator)
                 PasswordResetViewModel::class.java -> PasswordResetViewModel(navigationA, clearViewModel, authRepository, inputValidator)
 
-                MainFragmentViewModel::class.java -> MainFragmentViewModel(navigationF)
+                MainFragmentViewModel::class.java -> MainFragmentViewModel(navigationF, navigationA, authRepository)
 
-                TasksViewModel::class.java -> TasksViewModel(navigationF, taskRepository)
                 TaskDayViewModel::class.java -> TaskDayViewModel(navigationF ,taskRepository, taskListLiveDataWrapper, taskInfoLiveDataWrapper)
                 TaskAddViewModel::class.java -> TaskAddViewModel(navigationF, clearViewModel, workerRepository, workersListLiveDataWrapper, addressesRepository, addressesListLiveDataWrapper,taskRepository, taskListLiveDataWrapper)
                 TaskInfoViewModel::class.java -> TaskInfoViewModel(navigationF, clearViewModel, workerRepository, workerInfoLiveDataWrapper, addressesRepository, addressInfoLiveDataWrapper,taskRepository, taskListLiveDataWrapper, taskInfoLiveDataWrapper)
+                TaskHistoryViewModel::class.java -> TaskHistoryViewModel(navigationF, taskRepository, tasksHistoryLiveDataWrapper)
 
                 WorkersViewModel::class.java -> WorkersViewModel(navigationF, clearViewModel, workerRepository, workerInfoLiveDataWrapper, workersListLiveDataWrapper)
                 AddWorkerViewModel::class.java -> AddWorkerViewModel(navigationF, clearViewModel, workerRepository)

@@ -47,4 +47,8 @@
         <item name="android:textColor">@color/white</item>
         <item name="android:textColorHint">@color/dark_white</item>
     </style>
+
+    <style name="NavDrawerItemText" parent="TextAppearance.AppCompat.Body1">
+        <item name="android:textSize">18sp</item>
+    </style>
 </resources>

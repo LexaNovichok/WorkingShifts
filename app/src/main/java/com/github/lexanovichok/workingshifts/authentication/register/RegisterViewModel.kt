@@ -1,5 +1,6 @@
 package com.github.lexanovichok.workingshifts.authentication.register
 
+import android.util.Log
 import com.github.lexanovichok.workingshifts.authentication.auth.AuthRepository
 import com.github.lexanovichok.workingshifts.authentication.auth.AuthViewModel
 import com.github.lexanovichok.workingshifts.core.InputValidator
@@ -23,6 +24,7 @@ class RegisterViewModel(
 
     fun loginFragment() {
         navigationA.update(LoginScreenA)
+        Log.d("NAVIGATION", "RegisterViewModel update to: LoginScreenA")
     }
 
     fun register(email: String, password: String, confirmPassword: String) {

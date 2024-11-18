@@ -15,8 +15,6 @@ class MainViewModel(
 ) : ViewModel(), NavigationA.Read {
 
     private val _navigationState = MutableLiveData<ScreenA>()
-    val navigationState: LiveData<ScreenA> = _navigationState
-    private var isInitialNavigationDone = false
 
     init {
         Log.d("LC", "MainViewModel init")
@@ -26,8 +24,10 @@ class MainViewModel(
 
 
     fun init(isFirstRun : Boolean) {
-        if (isFirstRun)
+        if (isFirstRun) {
             navigationA.update(LoginScreenA)
+            Log.d("NAVIGATION", "MainViewModel update to: LoginScreen")
+        }
     }
 
     fun isLoggedIn() : Boolean =

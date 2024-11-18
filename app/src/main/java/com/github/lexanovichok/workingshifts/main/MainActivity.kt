@@ -14,9 +14,6 @@ class MainActivity : AppCompatActivity(), ProvideViewModel {
     private lateinit var binding : ActivityMainBinding
     private lateinit var mainViewModel : MainViewModel
 
-    init {
-        Log.d("LC", "MainActivity init")
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +27,7 @@ class MainActivity : AppCompatActivity(), ProvideViewModel {
         mainViewModel.liveData().observe(this) { screen ->
             if (!mainViewModel.isLoggedIn()) {
                 screen.show(supportFragmentManager, binding.container.id)
+                //Log.d("NAVIGATION", "MainActivity livedata screen: $screen")
             }
         }
 
@@ -41,4 +39,5 @@ class MainActivity : AppCompatActivity(), ProvideViewModel {
     override fun <T : ViewModel> viewModel(viewModelClass: Class<T>): T {
         return (application as ProvideViewModel).viewModel(viewModelClass)
     }
+
 }

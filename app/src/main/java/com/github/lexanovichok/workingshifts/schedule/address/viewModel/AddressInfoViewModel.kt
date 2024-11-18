@@ -52,6 +52,7 @@ class AddressInfoViewModel(
 
     private fun comeback() {
         navigationF.update(ScreenF.Pop)
+        Log.d("NAVIGATION", "AddressInfoViewModel update to: Screen.Pop")
         clear.clearViewModel(WorkerInfoViewModel::class.java)
     }
 }

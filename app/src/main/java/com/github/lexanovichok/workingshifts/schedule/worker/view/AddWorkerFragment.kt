@@ -50,4 +50,6 @@ class AddWorkerFragment : AbstractFragment<FragmentAddWorkerBinding>() {
         }
     }
 
+
+
 }

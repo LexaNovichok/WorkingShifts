@@ -1,4 +1,4 @@
-package com.github.lexanovichok.workingshifts.schedule.tasks.core
+package com.github.lexanovichok.workingshifts.schedule.tasks.adapter
 
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,10 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.github.lexanovichok.workingshifts.R
 import com.github.lexanovichok.workingshifts.schedule.userData.Task
-import com.github.lexanovichok.workingshifts.schedule.userData.Worker
 import com.github.lexanovichok.workingshifts.databinding.TaskRcviewItemBinding
-import com.github.lexanovichok.workingshifts.schedule.userData.Address
-import com.github.lexanovichok.workingshifts.schedule.worker.core.WorkersRcViewAdapter
 
 class TasksRcViewAdapter(private val listener : OnTaskClickListener) : RecyclerView.Adapter<TasksRcViewAdapter.ViewHolder>() {
 
