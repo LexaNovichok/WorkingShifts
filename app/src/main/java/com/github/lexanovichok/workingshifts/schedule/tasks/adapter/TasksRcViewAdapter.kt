@@ -75,7 +75,8 @@ class TasksRcViewAdapter(private val listener : OnTaskClickListener) : RecyclerV
                     oldItem.address.city == newItem.address.city &&
                     oldItem.address.street == newItem.address.street &&
                     oldItem.address.houseNum == newItem.address.houseNum &&
-                    oldItem.date == newItem.date
+                    oldItem.date == newItem.date &&
+                    oldItem.description == newItem.description
         }
 
     }

@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="16dp"
-        android:background="@color/dark_white">
+        android:background="@drawable/border">
 
         <TextView
             android:id="@+id/workerNameText"

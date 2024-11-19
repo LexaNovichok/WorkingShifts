@@ -43,6 +43,7 @@ class AddressesFragment : AbstractFragment<FragmentAddressesBinding>() {
 
         viewModel.addressesListLiveData().observe(viewLifecycleOwner) { list ->
             rcViewAdapter.update(ArrayList(list))
+            Log.d("LiveData", "AddressesFragment addressesListLiveData rcView updated with: $list")
         }
     }
 
@@ -50,6 +51,7 @@ class AddressesFragment : AbstractFragment<FragmentAddressesBinding>() {
         rcViewAdapter = AddressesRcViewAdapter(object : AddressesRcViewAdapter.OnAddressClickListener {
             override fun onClick(address: Address) {
                 viewModel.updateAddressFromRcView(address)
+                Log.d("LiveData", "Go to item with address: $address")
                 viewModel.addressInfoFragment()
             }
 

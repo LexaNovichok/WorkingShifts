@@ -1,6 +1,7 @@
 package com.github.lexanovichok.workingshifts.schedule.address.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,6 +37,7 @@ class AddressInfoFragment : AbstractFragment<FragmentAddressInfoBinding>() {
                     descriptionEditText.setText("")
                 }
             }
+            Log.d("LiveData", "AddressInfoFragment addressInfoLiveData updated with: $address")
         }
 
         binding.saveButton.setOnClickListener {
@@ -47,6 +49,7 @@ class AddressInfoFragment : AbstractFragment<FragmentAddressInfoBinding>() {
             val address = Address(id = id, city = city, street = street, description = description)
             hideKeyBoard()
             viewModel.updateAddress(address)
+            Log.d("LiveData", "AddressInfoFragment saved to addressInfoLiveData: $address")
         }
 
         binding.deleteButton.setOnClickListener {

@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/backgr_im">
+    android:background="@drawable/test">
 
     <ImageButton
         android:id="@+id/deleteButton"
@@ -37,6 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="4dp"
+            android:textColor="@color/black"
             android:text="Имя" />
 
         <EditText
@@ -52,6 +53,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginStart="4dp"
             android:layout_marginTop="24dp"
+            android:textColor="@color/black"
             android:text="Контактная информация" />
 
         <EditText
@@ -67,6 +69,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginStart="4dp"
             android:layout_marginTop="24dp"
+            android:textColor="@color/black"
             android:text="Описание" />
 
         <EditText

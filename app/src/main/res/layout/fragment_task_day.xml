@@ -21,7 +21,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
                 android:text="12/11/2024"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textSize="18sp" />
 
             <androidx.recyclerview.widget.RecyclerView
@@ -41,9 +41,7 @@
         android:id="@+id/addTaskButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/plus"
-        android:backgroundTint="@color/dark_blue"
-        android:layout_margin="16dp"
+        style="@style/FloatingButton"
         android:contentDescription="addTaskButton"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true" />

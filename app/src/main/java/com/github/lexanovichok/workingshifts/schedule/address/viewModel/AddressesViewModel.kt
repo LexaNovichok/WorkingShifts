@@ -44,6 +44,7 @@ class AddressesViewModel(
                     val list = addressRepository.getAddresses()
                     withContext(dispatcherMain) {
                         addressesListLiveDataWrapper.update(list)
+                        Log.d("LiveData", "AddressesViewModel addressesRef updated with: $list")
                     }
                 }
             }

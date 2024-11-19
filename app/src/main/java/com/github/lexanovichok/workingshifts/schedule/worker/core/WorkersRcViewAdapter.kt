@@ -66,7 +66,8 @@ class WorkersRcViewAdapter(private val listener : OnWorkerClickListener) : Recyc
             val newItem = new[newItemPosition]
 
             return oldItem.name == newItem.name &&
-                    oldItem.contacts == newItem.contacts
+                    oldItem.contacts == newItem.contacts &&
+                    oldItem.description == newItem.description
         }
 
     }

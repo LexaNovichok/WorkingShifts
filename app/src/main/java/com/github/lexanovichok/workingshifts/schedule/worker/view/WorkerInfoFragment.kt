@@ -44,6 +44,8 @@ class WorkerInfoFragment : AbstractFragment<FragmentWorkerInfoBinding>() {
                     descriptionEditText.setText("")
                 }
             }
+
+            Log.d("LiveData", "WorkerInfoFragment workerInfoLiveData updated with: name: ${worker.name}, contacts: ${worker.contacts}, description: ${worker.description}")
         }
 
         binding.saveButton.setOnClickListener {

@@ -69,7 +69,8 @@ class AddressesRcViewAdapter(private val listener : OnAddressClickListener) : Re
             val newItem = new[newItemPosition]
 
             return oldItem.city == newItem.city &&
-                    oldItem.street == newItem.street
+                    oldItem.street == newItem.street &&
+                    oldItem.description == newItem.description
         }
 
     }

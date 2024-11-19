@@ -27,6 +27,7 @@ class WorkerInfoViewModel(
 
     private val viewModelScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
 
+
     fun updateWorker(worker: Worker) {
         Log.d("SCHEDULE", "WorkerInfoViewModel updateWorker id: ${worker.id}, name: ${worker.name}, contacts: ${worker.contacts}")
         viewModelScope.launch(dispatcher) {
