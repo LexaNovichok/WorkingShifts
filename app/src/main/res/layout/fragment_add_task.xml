@@ -30,7 +30,7 @@
                 style="@style/SpinnerStyle"
                 android:hint="Введите работника"
                 android:textColor="@color/white"
-                android:backgroundTint="@color/black"
+                android:backgroundTint="?attr/editTextBgColor"
                 android:layout_marginTop="8dp" />
 
             <Space
@@ -42,7 +42,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
-                android:backgroundTint="@color/black"
+                android:backgroundTint="?attr/editTextBgColor"
                 style="@style/SpinnerStyle"
                 android:hint="Введите адрес"
                 android:layout_marginTop="8dp" />
@@ -72,7 +72,8 @@
         android:id="@+id/saveButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/black"
+        android:backgroundTint="?attr/buttonBgColor"
+        android:textColor="@color/white"
         android:text="@string/add"
         android:layout_margin="8dp"
         app:layout_constraintBottom_toBottomOf="parent" />

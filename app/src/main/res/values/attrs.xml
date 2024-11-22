@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="AppTheme">
+        <attr name="navViewColor" format="color" />
+        <attr name="textViewColor" format="color"/>
+        <attr name="textViewEditTextColor" format="color"/>
+        <attr name="itemBgColor" format="color"/>
+        <attr name="buttonBgColor" format="color"/>
+        <attr name="editTextBgColor" format="color"/>
+    </declare-styleable>
+</resources>

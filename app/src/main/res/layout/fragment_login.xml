@@ -86,8 +86,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Log In"
-            android:backgroundTint="@color/black"
-            android:textColor="#FFFFFF"
+            android:backgroundTint="?attr/buttonBgColor"
+            android:textColor="@color/white"
             android:layout_marginBottom="16dp" />
 
         <TextView

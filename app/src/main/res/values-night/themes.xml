@@ -1,7 +1,22 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.WorkingShifts" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <item name="android:windowBackground">@drawable/background</item>
+        <item name="colorControlNormal">@color/white</item>
+
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowTranslucentStatus">false</item> <!-- Для прозрачности статус-бара -->
+        <item name="android:windowTranslucentNavigation">false</item> <!-- Для прозрачности навигационной панели -->
+
+
+        <item name="navViewColor">@color/sineva</item>
+        <item name="textViewColor">@color/white</item>
+        <item name="textViewEditTextColor">@color/white</item>
+        <item name="itemBgColor">@color/light_sineva</item>
+        <item name="buttonBgColor">@color/light_blue</item>
+        <item name="editTextBgColor">@color/white</item>
+
     </style>
 </resources>

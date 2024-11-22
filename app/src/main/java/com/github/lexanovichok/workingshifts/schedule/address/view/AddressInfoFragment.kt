@@ -1,5 +1,6 @@
 package com.github.lexanovichok.workingshifts.schedule.address.view
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -53,10 +54,26 @@ class AddressInfoFragment : AbstractFragment<FragmentAddressInfoBinding>() {
         }
 
         binding.deleteButton.setOnClickListener {
-            viewModel.addressInfoLiveData().value?.let {
-                hideKeyBoard()
-                viewModel.deleteAddress(it.id)
-            }
+            showDeleteConfirmationDialog()
         }
+    }
+
+    private fun showDeleteConfirmationDialog() {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setMessage("Вы уверены, что хотите удалить этот адресс?")
+            .setPositiveButton("Удалить") { dialog, id ->
+                // Получаем информацию о работнике и выполняем удаление
+                viewModel.addressInfoLiveData().value?.let {
+                    hideKeyBoard()
+                    viewModel.deleteAddress(it.id)
+                    //Toast.makeText(requireContext(), "Работник удалён", Toast.LENGTH_SHORT).show()
+                }
+            }
+            .setNegativeButton("Отмена") { dialog, id ->
+                dialog.dismiss() // Закрытие диалога без действия
+            }
+
+        val dialog = builder.create()
+        dialog.show()
     }
 }

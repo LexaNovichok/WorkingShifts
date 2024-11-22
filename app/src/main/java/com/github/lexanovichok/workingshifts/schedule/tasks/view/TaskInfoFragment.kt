@@ -1,5 +1,6 @@
 package com.github.lexanovichok.workingshifts.schedule.tasks.view
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -36,10 +37,7 @@ class TaskInfoFragment : AbstractFragment<FragmentTaskInfoBinding>() {
         }
 
         binding.deleteButton.setOnClickListener {
-            viewModel.taskInfoLiveData().value?.let {
-                hideKeyBoard()
-                viewModel.deleteTask(it.id)
-            }
+            showDeleteConfirmationDialog()
         }
 
         binding.workerCard.setOnClickListener {
@@ -75,5 +73,24 @@ class TaskInfoFragment : AbstractFragment<FragmentTaskInfoBinding>() {
                 descriptionEditText.setText("")
             }
         }
+    }
+
+    private fun showDeleteConfirmationDialog() {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setMessage("Вы уверены, что хотите удалить эту задачу?")
+            .setPositiveButton("Удалить") { dialog, id ->
+                // Получаем информацию о работнике и выполняем удаление
+                viewModel.taskInfoLiveData().value?.let {
+                    hideKeyBoard()
+                    viewModel.deleteTask(it.id)
+                    //Toast.makeText(requireContext(), "Работник удалён", Toast.LENGTH_SHORT).show()
+                }
+            }
+            .setNegativeButton("Отмена") { dialog, id ->
+                dialog.dismiss() // Закрытие диалога без действия
+            }
+
+        val dialog = builder.create()
+        dialog.show()
     }
 }

@@ -21,7 +21,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
                 android:text="12/11/2024"
-                android:textColor="@color/black"
+                android:textColor="?attr/textViewColor"
                 android:textSize="18sp" />
 
             <androidx.recyclerview.widget.RecyclerView

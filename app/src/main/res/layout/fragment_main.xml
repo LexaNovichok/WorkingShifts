@@ -19,11 +19,12 @@
             android:id="@+id/bottomNavigationView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#8eacb7"
             android:layout_alignParentBottom="true"
-            app:itemTextColor="@color/white"
-            app:itemIconTint="@color/white"
+            android:layout_marginBottom="0dp"
+            android:background="?attr/navViewColor"
             app:itemIconSize="48dp"
+            app:itemIconTint="@color/white"
+            app:itemTextColor="@color/white"
             app:menu="@menu/bottom_nav_menu" />
 
     </RelativeLayout>
@@ -35,36 +36,77 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         app:itemTextAppearance="@style/NavDrawerItemText"
+        app:itemTextColor="?attr/textViewColor"
+        app:itemIconTint="?attr/textViewColor"
         android:background="@color/laguna"
         app:menu="@menu/drawer_menu">
 
-        <LinearLayout
-            android:id="@+id/logoutClickable"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="left"
-            android:layout_gravity="bottom"
-            android:padding="16dp"
-            android:clickable="true"
-            android:layout_marginBottom="4dp">
+            android:layout_height="match_parent">
 
-            <ImageView
-                android:id="@+id/footer_icon"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/bx_log_out" />
-
-            <TextView
-                android:id="@+id/logout_text"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Выйти из аккаунта"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                android:layout_marginStart="8dp"/>
-        </LinearLayout>
+                android:orientation="vertical"
+                android:layout_gravity="bottom">
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="16dp"
+                    android:clickable="true">
+
+                    <TextView
+                        android:id="@+id/switch_theme_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Темная тема"
+                        android:textSize="18sp"
+                        android:layout_gravity="center_vertical"
+                        android:textColor="?attr/textViewColor"
+                        android:layout_marginEnd="8dp" />
+
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/switch_theme"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="22dp"
+                        style="@style/CustomSwitchCompat"
+                        android:layout_gravity="end"
+                        android:checked="false" />
+                </LinearLayout>
+
+                <!-- Выход из аккаунта -->
+                <LinearLayout
+                    android:id="@+id/logoutClickable"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="16dp"
+                    android:clickable="true"
+                    android:layout_marginBottom="4dp">
+
+                    <ImageView
+                        android:id="@+id/footer_icon"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/bx_log_out" />
+
+                    <TextView
+                        android:id="@+id/logout_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Выйти из аккаунта"
+                        android:textColor="?attr/textViewColor"
+                        android:textSize="18sp"
+                        android:layout_marginStart="8dp" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </FrameLayout>
     </com.google.android.material.navigation.NavigationView>
 
 </androidx.drawerlayout.widget.DrawerLayout>

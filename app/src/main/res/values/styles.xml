@@ -19,7 +19,7 @@
     </style>
 
     <style name="TextViewWhite" parent="Widget.AppCompat.TextView">
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">?attr/textViewEditTextColor</item>
         <item name="android:textSize">18sp</item>
     </style>
 
@@ -43,8 +43,8 @@
 
     <style name="EditTextAuthStyle" parent="Widget.AppCompat.EditText">
         <item name="android:padding">12dp</item>
-        <item name="backgroundTint">@color/black</item>
-        <item name="android:textColor">@color/white</item>
+        <item name="backgroundTint">?attr/editTextBgColor</item>
+        <item name="android:textColor">?attr/textViewEditTextColor</item>
         <item name="android:textColorHint">@color/white</item>
     </style>
 
@@ -56,6 +56,18 @@
         <item name="android:src">@drawable/plus</item>
         <item name="backgroundTint">@color/laguna</item>
         <item name="android:layout_margin">12dp</item>
+    </style>
+
+    <style name="TextStyleInItems" parent="Widget.AppCompat.TextView">
+        <item name="color">?attr/textViewColor</item>
+    </style>
+
+    <style name="ButtonAddSaveStyle" parent="TextAppearance.AppCompat.Button">
+        <item name="buttonBgColor">?attr/buttonBgColor</item>
+    </style>
+
+    <style name="CustomSwitchCompat">
+        <item name="android:thumb">@drawable/bxs_moon</item>
     </style>
 
 </resources>

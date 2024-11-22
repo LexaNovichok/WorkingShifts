@@ -1,5 +1,6 @@
 package com.github.lexanovichok.workingshifts.schedule.main
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -9,6 +10,8 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.addCallback
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.widget.SwitchCompat
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.FragmentManager
 import com.github.lexanovichok.workingshifts.R
@@ -39,6 +42,9 @@ class MainFragment : AbstractFragment<FragmentMainBinding>() {
 
         mainFragmentViewModel =
             (activity as ProvideViewModel).viewModel(MainFragmentViewModel::class.java)
+
+
+
 
         val selectedItemId = savedInstanceState?.getInt("selected_item_id") ?: R.id.nav_tasks
         binding.bottomNavigationView.selectedItemId = selectedItemId
@@ -87,6 +93,7 @@ class MainFragment : AbstractFragment<FragmentMainBinding>() {
         }
 
         val logoutClickable = binding.navigationView.findViewById<LinearLayout>(R.id.logoutClickable)
+
         logoutClickable.setOnClickListener {
             mainFragmentViewModel.logout()
             Toast.makeText(activity, "Вы вышли из аккаунта", Toast.LENGTH_SHORT).show()
@@ -99,6 +106,32 @@ class MainFragment : AbstractFragment<FragmentMainBinding>() {
             binding.drawerLayout.closeDrawer(GravityCompat.START)
 
         }
+
+
+        // --- Работа с темой ---
+        val sharedPreferences = requireContext().getSharedPreferences("theme_prefs", Context.MODE_PRIVATE)
+        val switchTheme = binding.navigationView.findViewById<SwitchCompat>(R.id.switch_theme)
+
+        // Устанавливаем начальное состояние переключателя
+        val isDarkMode = sharedPreferences.getBoolean("isDarkMode", false)
+        AppCompatDelegate.setDefaultNightMode(
+            if (isDarkMode) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO
+        )
+        switchTheme.isChecked = isDarkMode
+
+
+        switchTheme.setOnCheckedChangeListener { _, isChecked ->
+            val editor = sharedPreferences.edit()
+            if (isChecked) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                editor.putBoolean("isDarkMode", true)
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                editor.putBoolean("isDarkMode", false)
+            }
+            editor.apply()
+        }
+
 
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             // Проверяем стек фрагментов внутри MainFragment
