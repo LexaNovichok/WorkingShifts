@@ -78,31 +78,31 @@
                         android:checked="false" />
                 </LinearLayout>
 
-                <!-- Выход из аккаунта -->
-                <LinearLayout
-                    android:id="@+id/logoutClickable"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="16dp"
-                    android:clickable="true"
-                    android:layout_marginBottom="4dp">
+<!--                &lt;!&ndash; Выход из аккаунта &ndash;&gt;-->
+<!--                <LinearLayout-->
+<!--                    android:id="@+id/logoutClickable"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="horizontal"-->
+<!--                    android:padding="16dp"-->
+<!--                    android:clickable="true"-->
+<!--                    android:layout_marginBottom="4dp">-->
 
-                    <ImageView
-                        android:id="@+id/footer_icon"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/bx_log_out" />
+<!--                    <ImageView-->
+<!--                        android:id="@+id/footer_icon"-->
+<!--                        android:layout_width="24dp"-->
+<!--                        android:layout_height="24dp"-->
+<!--                        android:src="@drawable/bx_log_out" />-->
 
-                    <TextView
-                        android:id="@+id/logout_text"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Выйти из аккаунта"
-                        android:textColor="?attr/textViewColor"
-                        android:textSize="18sp"
-                        android:layout_marginStart="8dp" />
-                </LinearLayout>
+<!--                    <TextView-->
+<!--                        android:id="@+id/logout_text"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="Выйти из аккаунта"-->
+<!--                        android:textColor="?attr/textViewColor"-->
+<!--                        android:textSize="18sp"-->
+<!--                        android:layout_marginStart="8dp" />-->
+<!--                </LinearLayout>-->
 
             </LinearLayout>
 

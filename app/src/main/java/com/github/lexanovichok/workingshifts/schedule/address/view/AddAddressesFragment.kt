@@ -1,10 +1,12 @@
 package com.github.lexanovichok.workingshifts.schedule.address.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.widget.addTextChangedListener
 import com.github.lexanovichok.workingshifts.core.AbstractFragment
 import com.github.lexanovichok.workingshifts.core.ProvideViewModel
 import com.github.lexanovichok.workingshifts.databinding.FragmentAddAddressBinding
@@ -14,6 +16,7 @@ import com.github.lexanovichok.workingshifts.schedule.userData.Address
 class AddAddressesFragment : AbstractFragment<FragmentAddAddressBinding>() {
 
     private lateinit var viewModel : AddAddressesViewModel
+    private var addressPropArray : ArrayList<String> = arrayListOf("", "", "")
     override fun bind(inflater: LayoutInflater, container: ViewGroup?): FragmentAddAddressBinding =
         FragmentAddAddressBinding.inflate(inflater, container, false)
 
@@ -21,6 +24,15 @@ class AddAddressesFragment : AbstractFragment<FragmentAddAddressBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel = (activity as ProvideViewModel).viewModel(AddAddressesViewModel::class.java)
+
+        addressPropArray = savedInstanceState?.getStringArrayList(ADDRESS_KEY) ?: arrayListOf("", "", "")
+        binding.cityEditText.setText(addressPropArray[0])
+        binding.streetEditText.setText(addressPropArray[1])
+        binding.descriptionEditText.setText(addressPropArray[2])
+        Log.d("BUNDLE", "onViewCreated: $addressPropArray")
+
+        saveTextChanges()
+
 
         binding.saveButton.setOnClickListener {
             with(binding) {
@@ -34,9 +46,43 @@ class AddAddressesFragment : AbstractFragment<FragmentAddAddressBinding>() {
                     hideKeyBoard()
                     viewModel.comeback()
                 } else {
-                    Toast.makeText(activity, "City can't be empty", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(activity, "Город не может быть пустым", Toast.LENGTH_SHORT).show()
                 }
             }
         }
+
+
+    }
+
+    private fun saveTextChanges() {
+        binding.cityEditText.addTextChangedListener {
+            with(binding) {
+                val city = cityEditText.text.toString()
+                addressPropArray[0] = city
+            }
+        }
+
+        binding.streetEditText.addTextChangedListener {
+            with(binding) {
+                val street = streetEditText.text.toString()
+                addressPropArray[1] = street
+            }
+        }
+
+        binding.descriptionEditText.addTextChangedListener {
+            with(binding) {
+                val description = descriptionEditText.text.toString()
+                addressPropArray[2] = description
+            }
+        }
+    }
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putStringArrayList(ADDRESS_KEY, addressPropArray)
+        Log.d("BUNDLE", "onSaveInstanceState: $addressPropArray")
+    }
+
+    companion object {
+        private const val ADDRESS_KEY = "ADDRESS_KEY"
     }
 }

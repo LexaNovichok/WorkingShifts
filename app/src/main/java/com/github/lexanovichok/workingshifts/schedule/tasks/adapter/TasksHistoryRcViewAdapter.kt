@@ -48,7 +48,11 @@ class TasksHistoryRcViewAdapter(
         private val binding = TaskRcviewItemBinding.bind(itemView)
 
         fun bind(item: ListItem.TaskItem) = with(binding) {
-            val addressText = "${item.task.address.city}, ${item.task.address.street}"
+            val addressText = if (item.task.address.street.isNotBlank()) {
+                "${item.task.address.city}, ${item.task.address.street}"
+            } else {
+                item.task.address.city
+            }
 
             tvWorkerName.text = item.task.worker.name
             tvLocation.text = addressText

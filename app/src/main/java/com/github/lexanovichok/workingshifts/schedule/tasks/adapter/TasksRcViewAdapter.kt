@@ -17,7 +17,11 @@ class TasksRcViewAdapter(private val listener : OnTaskClickListener) : RecyclerV
         private val binding = TaskRcviewItemBinding.bind(view)
 
         fun bind(task: Task, listener : OnTaskClickListener) = with(binding) {
-            val addressText = "${task.address.city}, ${task.address.street}"
+            val addressText = if (task.address.street.isNotBlank()) {
+                "${task.address.city}, ${task.address.street}"
+            } else {
+                task.address.city
+            }
 
             tvWorkerName.text = task.worker.name
             tvLocation.text = addressText

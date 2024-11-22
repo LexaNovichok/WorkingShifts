@@ -92,20 +92,20 @@ class MainFragment : AbstractFragment<FragmentMainBinding>() {
             }
         }
 
-        val logoutClickable = binding.navigationView.findViewById<LinearLayout>(R.id.logoutClickable)
-
-        logoutClickable.setOnClickListener {
-            mainFragmentViewModel.logout()
-            Toast.makeText(activity, "Вы вышли из аккаунта", Toast.LENGTH_SHORT).show()
-
-            val intent = requireActivity().intent
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
-            requireActivity().finish() // Закрываем текущую активность
-            startActivity(intent) // Перезапускаем
-
-            binding.drawerLayout.closeDrawer(GravityCompat.START)
-
-        }
+//        val logoutClickable = binding.navigationView.findViewById<LinearLayout>(R.id.logoutClickable)
+//
+//        logoutClickable.setOnClickListener {
+//            mainFragmentViewModel.logout()
+//            Toast.makeText(activity, "Вы вышли из аккаунта", Toast.LENGTH_SHORT).show()
+//
+//            val intent = requireActivity().intent
+//            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+//            requireActivity().finish() // Закрываем текущую активность
+//            startActivity(intent) // Перезапускаем
+//
+//            binding.drawerLayout.closeDrawer(GravityCompat.START)
+//
+//        }
 
 
         // --- Работа с темой ---

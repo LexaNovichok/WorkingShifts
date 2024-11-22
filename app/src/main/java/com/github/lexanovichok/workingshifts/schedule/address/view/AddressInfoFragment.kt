@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.github.lexanovichok.workingshifts.core.AbstractFragment
 import com.github.lexanovichok.workingshifts.core.ProvideViewModel
 import com.github.lexanovichok.workingshifts.databinding.FragmentAddressInfoBinding
@@ -47,10 +48,15 @@ class AddressInfoFragment : AbstractFragment<FragmentAddressInfoBinding>() {
             val street = binding.streetEditText.text.toString()
             val description = binding.descriptionEditText.text.toString()
 
-            val address = Address(id = id, city = city, street = street, description = description)
-            hideKeyBoard()
-            viewModel.updateAddress(address)
-            Log.d("LiveData", "AddressInfoFragment saved to addressInfoLiveData: $address")
+            if (city.trim().isNotBlank()) {
+                val address =
+                    Address(id = id, city = city, street = street, description = description)
+                hideKeyBoard()
+                viewModel.updateAddress(address)
+                Log.d("LiveData", "AddressInfoFragment saved to addressInfoLiveData: $address")
+            } else {
+                Toast.makeText(activity, "Город не может быть пустым", Toast.LENGTH_SHORT).show()
+            }
         }
 
         binding.deleteButton.setOnClickListener {

@@ -56,9 +56,13 @@ class WorkerInfoFragment : AbstractFragment<FragmentWorkerInfoBinding>() {
             val contacts = binding.contactsEditText.text.toString()
             val description = binding.descriptionEditText.text.toString()
 
-            val worker = Worker(id, name, contacts, description)
-            hideKeyBoard()
-            workerInfoViewModel.updateWorker(worker)
+            if (name.trim().isNotBlank()) {
+                val worker = Worker(id, name, contacts, description)
+                hideKeyBoard()
+                workerInfoViewModel.updateWorker(worker)
+            } else {
+                Toast.makeText(activity, "Имя не может быть пустым", Toast.LENGTH_SHORT).show()
+            }
         }
 
         binding.deleteButton.setOnClickListener {

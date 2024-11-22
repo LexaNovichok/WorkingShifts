@@ -24,10 +24,11 @@ class MainViewModel(
 
 
     fun init(isFirstRun : Boolean) {
-        if (isFirstRun) {
-            navigationA.update(LoginScreenA)
-            Log.d("NAVIGATION", "MainViewModel update to: LoginScreen")
-        }
+//        if (isFirstRun) {
+//            navigationA.update(LoginScreenA)
+//            Log.d("NAVIGATION", "MainViewModel update to: LoginScreen")
+//        }
+        navigationA.update(MainFragmentScreenA)
     }
 
     fun isLoggedIn() : Boolean =

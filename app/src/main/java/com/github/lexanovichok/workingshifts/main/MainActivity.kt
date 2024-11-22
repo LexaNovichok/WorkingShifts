@@ -25,10 +25,11 @@ class MainActivity : AppCompatActivity(), ProvideViewModel {
         mainViewModel = viewModel(MainViewModel::class.java)
 
         mainViewModel.liveData().observe(this) { screen ->
-            if (!mainViewModel.isLoggedIn()) {
-                screen.show(supportFragmentManager, binding.container.id)
-                //Log.d("NAVIGATION", "MainActivity livedata screen: $screen")
-            }
+//            if (!mainViewModel.isLoggedIn()) {
+//                screen.show(supportFragmentManager, binding.container.id)
+//                //Log.d("NAVIGATION", "MainActivity livedata screen: $screen")
+//            }
+            screen.show(supportFragmentManager, binding.container.id)
         }
 
         mainViewModel.init(savedInstanceState == null)

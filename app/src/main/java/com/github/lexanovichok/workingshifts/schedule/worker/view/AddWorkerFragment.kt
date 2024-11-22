@@ -44,7 +44,7 @@ class AddWorkerFragment : AbstractFragment<FragmentAddWorkerBinding>() {
                     addWorkerViewModel.comeback()
                 }
                 else {
-                    Toast.makeText(activity, "Name can't be empty", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(activity, "Имя не может быть пустым", Toast.LENGTH_SHORT).show()
                 }
             }
         }
