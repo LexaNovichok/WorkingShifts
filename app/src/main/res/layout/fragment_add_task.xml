@@ -10,28 +10,29 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/saveButton"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginBottom="12dp">
 
         <LinearLayout
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="80dp"
             android:orientation="vertical"
-            android:padding="16dp"
-            android:layout_marginTop="80dp">
+            android:padding="16dp">
 
             <AutoCompleteTextView
                 android:id="@+id/workerSpinner"
+                style="@style/SpinnerStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/SpinnerStyle"
-                android:hint="Введите работника"
-                android:textColor="@color/white"
+                android:layout_marginTop="8dp"
                 android:backgroundTint="?attr/editTextBgColor"
-                android:layout_marginTop="8dp" />
+                android:hint="Введите работника"
+                android:textColor="@color/white" />
 
             <Space
                 android:layout_width="wrap_content"
@@ -39,13 +40,13 @@
 
             <AutoCompleteTextView
                 android:id="@+id/addressSpinner"
+                style="@style/SpinnerStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white"
+                android:layout_marginTop="8dp"
                 android:backgroundTint="?attr/editTextBgColor"
-                style="@style/SpinnerStyle"
                 android:hint="Введите адрес"
-                android:layout_marginTop="8dp" />
+                android:textColor="@color/white" />
 
             <TextView
                 style="@style/TextViewWhite"
@@ -60,10 +61,10 @@
                 style="@style/EditTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:hint="Описание"
-                android:textSize="22sp"
                 android:textColorHint="@color/white"
-                android:layout_marginTop="8dp" />
+                android:textSize="22sp" />
 
         </LinearLayout>
     </ScrollView>

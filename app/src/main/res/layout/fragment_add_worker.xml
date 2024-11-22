@@ -8,10 +8,11 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/saveButton"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginBottom="12dp">
 
         <LinearLayout
             android:id="@+id/linearLayout"
@@ -31,8 +32,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="4dp"
-                android:textSize="18sp"
-                android:text="Имя" />
+                android:text="Имя"
+                android:textSize="18sp" />
 
             <EditText
                 android:id="@+id/nameEditText"
@@ -47,9 +48,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="4dp"
-                android:textSize="18sp"
                 android:layout_marginTop="24dp"
-                android:text="Контактная информация" />
+                android:text="Контактная информация"
+                android:textSize="18sp" />
 
             <EditText
                 android:id="@+id/contactsEditText"
@@ -65,8 +66,8 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="4dp"
                 android:layout_marginTop="24dp"
-                android:textSize="18sp"
-                android:text="Дополнительная информация" />
+                android:text="Дополнительная информация"
+                android:textSize="18sp" />
 
             <EditText
                 android:id="@+id/descriptionEditText"
