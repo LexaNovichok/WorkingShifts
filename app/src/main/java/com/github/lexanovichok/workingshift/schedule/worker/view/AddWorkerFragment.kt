@@ -1,0 +1,53 @@
+package com.github.lexanovichok.workingshift.schedule.worker.view
+
+import android.os.Bundle
+import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.Toast
+import com.github.lexanovichok.workingshift.core.AbstractFragment
+import com.github.lexanovichok.workingshift.core.ProvideViewModel
+import com.github.lexanovichok.workingshift.databinding.FragmentAddWorkerBinding
+import com.github.lexanovichok.workingshift.schedule.userData.Worker
+import com.github.lexanovichok.workingshift.schedule.worker.viewModel.AddWorkerViewModel
+
+class AddWorkerFragment : AbstractFragment<FragmentAddWorkerBinding>() {
+
+    private lateinit var addWorkerViewModel: AddWorkerViewModel
+
+    init {
+        Log.d("LC", "AddWorkerFragment: init")
+    }
+    override fun bind(inflater: LayoutInflater, container: ViewGroup?): FragmentAddWorkerBinding =
+        FragmentAddWorkerBinding.inflate(inflater, container, false)
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        Log.d("LC", "AddWorkerFragment: onViewCreated")
+        addWorkerViewModel = (activity as ProvideViewModel).viewModel(AddWorkerViewModel::class.java)
+
+
+        binding.saveButton.setOnClickListener {
+            with (binding) {
+                val name = nameEditText.text.toString()
+                val contactInfo = contactsEditText.text.toString()
+                val description = descriptionEditText.text.toString()
+
+                if (name.trim().isNotBlank()) {
+                    addWorkerViewModel.addWorker(Worker(name=name, contacts = contactInfo, description = description))
+
+                    hideKeyBoard()
+                    addWorkerViewModel.comeback()
+                }
+                else {
+                    Toast.makeText(activity, "Имя не может быть пустым", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
+
+
+}
