@@ -5,5 +5,6 @@ data class Worker(
     val name : String = "",
     val contacts : String = "",
     val description : String = "",
-    val icon : String = ""
+    val icon : String = "",
+    var order : Int = 0
 )

@@ -57,6 +57,11 @@ class TaskDayViewModel(
         })
     }
 
+    fun updateOrderInFirebase(updatedList: List<Task>) {
+        viewModelScope.launch(dispatcher) {
+            taskRepository.updateOrder(updatedList)
+        }
+    }
 
     fun tasksListLiveData() : LiveData<List<Task>> = taskListLiveDataWrapper.liveData()
 

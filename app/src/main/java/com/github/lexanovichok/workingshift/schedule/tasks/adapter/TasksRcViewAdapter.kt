@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.github.lexanovichok.workingshift.R
 import com.github.lexanovichok.workingshift.schedule.userData.Task
 import com.github.lexanovichok.workingshift.databinding.TaskRcviewItemBinding
+import java.util.Collections
 
 class TasksRcViewAdapter(private val listener : OnTaskClickListener) : RecyclerView.Adapter<TasksRcViewAdapter.ViewHolder>() {
 
@@ -40,6 +41,11 @@ class TasksRcViewAdapter(private val listener : OnTaskClickListener) : RecyclerV
         list.addAll(newList)
         Log.d("SCHEDULE", "TasksRcViewAdapter update")
         diff.dispatchUpdatesTo(this)
+    }
+
+    fun moveItem(fromPosition: Int, toPosition: Int) {
+        Collections.swap(list, fromPosition, toPosition)
+        notifyItemMoved(fromPosition, toPosition)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

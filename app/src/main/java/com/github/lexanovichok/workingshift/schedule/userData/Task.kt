@@ -5,5 +5,6 @@ data class Task(
     val worker : Worker = Worker(),
     val address : Address = Address(),
     val description : String = "",
-    val date : String = ""
+    val date : String = "",
+    var order: Int = 0
 )

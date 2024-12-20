@@ -39,7 +39,7 @@ class WorkersRepository {
 
     suspend fun getWorkers(): List<Worker> {
         return suspendCancellableCoroutine { continuation ->
-            workersRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            workersRef.orderByChild("order").addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     val workers = snapshot.children.mapNotNull { it.getValue(Worker::class.java) }
                     continuation.resume(workers)
@@ -67,6 +67,11 @@ class WorkersRepository {
         }
     }
 
+    suspend fun updateOrder(updatedList: List<Worker>) {
+        updatedList.forEachIndexed { index, worker ->
+            workersRef.child(worker.id).child("order").setValue(index)
+        }
+    }
 
     suspend fun updateWorker(worker: Worker) {
         workersRef.child(worker.id).setValue(worker).await()

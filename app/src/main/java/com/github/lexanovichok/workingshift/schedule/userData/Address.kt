@@ -5,5 +5,6 @@ data class Address(
     val city : String = "",
     val street : String = "",
     val houseNum : String = "",
-    val description : String = ""
+    val description : String = "",
+    var order: Int = 0
 )

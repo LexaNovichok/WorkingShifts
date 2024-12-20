@@ -55,6 +55,12 @@ class WorkersViewModel(
         })
     }
 
+    fun updateOrderInFirebase(updatedList: List<Worker>) {
+        viewModelScope.launch(dispatcher) {
+            workersRepository.updateOrder(updatedList)
+        }
+    }
+
     fun getWorkers() {
         viewModelScope.launch(dispatcher) {
             val list = workersRepository.getWorkers()

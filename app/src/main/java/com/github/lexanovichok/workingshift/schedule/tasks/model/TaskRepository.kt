@@ -19,7 +19,7 @@ class TaskRepository {
 
     suspend fun getTasks(): List<Task> {
         return suspendCancellableCoroutine { continuation ->
-            tasksRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            tasksRef.orderByChild("order").addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     val tasks = snapshot.children.mapNotNull { it.getValue(Task::class.java) }
                     continuation.resume(tasks)  // Возвращаем результат
@@ -53,6 +53,12 @@ class TaskRepository {
                 Log.d("SCHEDULE", "Error: ${exception.message}")
                 continuation.resumeWithException(exception)  // Возвращаем исключение
             }
+        }
+    }
+
+    suspend fun updateOrder(updatedList: List<Task>) {
+        updatedList.forEachIndexed { index, task ->
+            tasksRef.child(task.id).child("order").setValue(index)
         }
     }
 

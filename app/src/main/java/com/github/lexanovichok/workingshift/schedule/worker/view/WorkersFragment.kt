@@ -66,14 +66,23 @@ class WorkersFragment : AbstractFragment<FragmentWorkersBinding>() {
     }
 
 
-    //Item touch helper (swipes on rcView items)
-    private val itemTouchHelperCallback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+
+    private val itemTouchHelperCallback = object : ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP or ItemTouchHelper.DOWN, 0) {
         override fun onMove(
             recyclerView: RecyclerView,
             viewHolder: RecyclerView.ViewHolder,
             target: RecyclerView.ViewHolder
         ): Boolean {
-            return false // Не нужно обрабатывать перемещение
+            val fromPosition = viewHolder.adapterPosition
+            val toPosition = target.adapterPosition
+
+            // Обновляем порядок элементов в адаптере
+            rcViewAdapter.moveItem(fromPosition, toPosition)
+
+            // Сохраняем новый порядок в Firebase
+            workersViewModel.updateOrderInFirebase(rcViewAdapter.list)
+
+            return true
         }
 
         override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {

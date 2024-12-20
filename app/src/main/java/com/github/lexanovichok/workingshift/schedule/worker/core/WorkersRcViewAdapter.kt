@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.github.lexanovichok.workingshift.R
 import com.github.lexanovichok.workingshift.databinding.WorkerRcviewItemBinding
 import com.github.lexanovichok.workingshift.schedule.userData.Worker
+import java.util.Collections
 
 class WorkersRcViewAdapter(private val listener : OnWorkerClickListener) : RecyclerView.Adapter<WorkersRcViewAdapter.ViewHolder>() {
     internal val list : ArrayList<Worker> = arrayListOf()
@@ -32,6 +33,11 @@ class WorkersRcViewAdapter(private val listener : OnWorkerClickListener) : Recyc
         list.clear()
         list.addAll(newList)
         diff.dispatchUpdatesTo(this)
+    }
+
+    fun moveItem(fromPosition: Int, toPosition: Int) {
+        Collections.swap(list, fromPosition, toPosition)
+        notifyItemMoved(fromPosition, toPosition)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.github.lexanovichok.workingshift.R
 import com.github.lexanovichok.workingshift.databinding.AddressRcviewItemBinding
 import com.github.lexanovichok.workingshift.schedule.userData.Address
+import java.util.Collections
 
 class AddressesRcViewAdapter(private val listener : OnAddressClickListener) : RecyclerView.Adapter<AddressesRcViewAdapter.ViewHolder>() {
     internal val list : ArrayList<Address> = arrayListOf()
@@ -32,6 +33,11 @@ class AddressesRcViewAdapter(private val listener : OnAddressClickListener) : Re
         list.clear()
         list.addAll(newList)
         diff.dispatchUpdatesTo(this)
+    }
+
+    fun moveItem(fromPosition: Int, toPosition: Int) {
+        Collections.swap(list, fromPosition, toPosition)
+        notifyItemMoved(fromPosition, toPosition)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

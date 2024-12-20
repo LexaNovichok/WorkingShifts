@@ -68,6 +68,12 @@ class AddressesViewModel(
         addressInfoLiveDataWrapper.update(address) //адрес из айтема ресайклера по которому кликнули
     }
 
+    fun updateOrderInFirebase(updatedList: List<Address>) {
+        viewModelScope.launch(dispatcher) {
+            addressRepository.updateOrder(updatedList)
+        }
+    }
+
     fun addAddressFragment() {
         navigationF.update(AddAddressesScreenF)
         Log.d("NAVIGATION", "AddressesViewModel update to: AddAddressesScreenF")

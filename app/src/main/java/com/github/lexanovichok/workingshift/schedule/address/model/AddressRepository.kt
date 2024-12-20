@@ -38,7 +38,7 @@ class AddressRepository {
 
     suspend fun getAddresses(): List<Address> {
         return suspendCancellableCoroutine { continuation ->
-            addressesRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            addressesRef.orderByChild("order").addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     val address = snapshot.children.mapNotNull { it.getValue(Address::class.java) }
                     continuation.resume(address)
@@ -48,6 +48,12 @@ class AddressRepository {
                     continuation.resumeWithException(Exception("Error getting workers: ${error.message}"))
                 }
             })
+        }
+    }
+
+    suspend fun updateOrder(updatedList: List<Address>) {
+        updatedList.forEachIndexed { index, address ->
+            addressesRef.child(address.id).child("order").setValue(index)
         }
     }
 
