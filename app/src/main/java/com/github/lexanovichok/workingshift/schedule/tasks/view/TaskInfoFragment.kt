@@ -6,23 +6,48 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
+import androidx.lifecycle.lifecycleScope
+import com.github.lexanovichok.workingshift.authentication.login.LoginViewModel
 import com.github.lexanovichok.workingshift.core.AbstractFragment
 import com.github.lexanovichok.workingshift.core.ProvideViewModel
 import com.github.lexanovichok.workingshift.databinding.FragmentTaskInfoBinding
+import com.github.lexanovichok.workingshift.schedule.tasks.viewModel.TaskDayViewModel
 import com.github.lexanovichok.workingshift.schedule.tasks.viewModel.TaskInfoViewModel
 import com.github.lexanovichok.workingshift.schedule.userData.Task
+import kotlinx.coroutines.launch
 
 class TaskInfoFragment : AbstractFragment<FragmentTaskInfoBinding>() {
 
     private lateinit var viewModel : TaskInfoViewModel
+    private lateinit var loginViewModel : LoginViewModel
+    private var isAdmin: Boolean = false
+
     override fun bind(inflater: LayoutInflater, container: ViewGroup?): FragmentTaskInfoBinding =
         FragmentTaskInfoBinding.inflate(inflater, container, false)
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel = (activity as ProvideViewModel).viewModel(TaskInfoViewModel::class.java)
+        loginViewModel = (activity as ProvideViewModel).viewModel(LoginViewModel::class.java)
+
+        lifecycleScope.launch {
+                val userState = loginViewModel.checkUserStatus()
+                isAdmin = userState.isAdmin
+        }
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel = (activity as ProvideViewModel).viewModel(TaskInfoViewModel::class.java)
         val currentTask : Task? = viewModel.taskInfoLiveData().value
+
+        if (isAdded && binding != null) {
+            Log.d("ROLE", "rcView onclick onViewCreated isAdmin: $isAdmin")
+            binding?.deleteButton?.visibility = if (isAdmin) View.VISIBLE else View.GONE
+            binding?.saveButton?.visibility = if (isAdmin) View.VISIBLE else View.GONE
+        }
 
         viewModel.taskInfoLiveData().observe(viewLifecycleOwner) { task ->
             Log.d("TaskInfoFragment", "task: workerName: ${task.worker.name}, address: ${task.address.city}")

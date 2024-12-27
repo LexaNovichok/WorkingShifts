@@ -31,19 +31,11 @@ class LoginFragment : AbstractFragment<FragmentLoginBinding>() {
         Log.d("LC", "LoginFragment onViewCreated")
         loginViewModel = (activity as ProvideViewModel).viewModel(LoginViewModel::class.java)
 
-
-//        loginViewModel.isLoggedIn.observe(viewLifecycleOwner) {
-//            if (it && loginViewModel.isEmailVerified()) {
-//                loginViewModel.scheduleFragment()
-//            }
-//        }
-
         loginViewModel.errorMessage.observe(viewLifecycleOwner) {
             it?.let {
                 Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
             }
         }
-
 
         binding.loginButton.setOnClickListener {
             val email = binding.email.text.toString()
@@ -60,29 +52,21 @@ class LoginFragment : AbstractFragment<FragmentLoginBinding>() {
                 Log.d("LC", "isLoggedIn: ${userState.isLoggedIn}, isVerified: ${userState.isEmailVerified} isAdmin: ${userState.isAdmin}")
 
                 if (userState.isLoggedIn && userState.isEmailVerified) {
-                    if (userState.isAdmin) {
-                        loginViewModel.mainFragment()
-                    } else {
-                        Toast.makeText(requireContext(), "Недостаточно прав", Toast.LENGTH_SHORT).show()
+                    when {
+                        userState.isAdmin -> {
+                            loginViewModel.mainFragment()
+                        }
+                        userState.isViewer -> {
+                            loginViewModel.mainFragment()
+                        }
+                        else -> {
+                            Toast.makeText(requireContext(), "Недостаточно прав", Toast.LENGTH_SHORT).show()
+                        }
                     }
                 } else if (userState.isLoggedIn && !userState.isEmailVerified) {
-                    //Toast.makeText(requireContext(), "Please verify your email first", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "Пожалуйста, подтвердите свою почту", Toast.LENGTH_SHORT).show()
                 }
             }
-
-
-//            loginViewModel.userState.observe(viewLifecycleOwner) { userState ->
-//                Log.d("LC", "isLoggedIn: ${userState.isLoggedIn}, isVerified: ${userState.isEmailVerified} isAdmin: ${userState.isAdmin}")
-//                if (userState.isLoggedIn && userState.isEmailVerified) {
-//                    if (userState.isAdmin) {
-//                        loginViewModel.mainFragment()
-//                    } else {
-//                        Toast.makeText(requireContext(), "Недостаточно прав", Toast.LENGTH_SHORT).show()
-//                    }
-//                } else if (userState.isLoggedIn && !userState.isEmailVerified) {
-//                    Toast.makeText(requireContext(), "Please verify your email first", Toast.LENGTH_SHORT).show()
-//                }
-//            }
         }
 
         binding.signupTextView.setOnClickListener {

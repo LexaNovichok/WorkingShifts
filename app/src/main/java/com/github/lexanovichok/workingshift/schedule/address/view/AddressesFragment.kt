@@ -7,20 +7,26 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.github.lexanovichok.workingshift.R
+import com.github.lexanovichok.workingshift.authentication.login.LoginViewModel
 import com.github.lexanovichok.workingshift.core.AbstractFragment
 import com.github.lexanovichok.workingshift.core.ProvideViewModel
 import com.github.lexanovichok.workingshift.databinding.FragmentAddressesBinding
 import com.github.lexanovichok.workingshift.schedule.address.core.AddressesRcViewAdapter
 import com.github.lexanovichok.workingshift.schedule.address.viewModel.AddressesViewModel
 import com.github.lexanovichok.workingshift.schedule.userData.Address
+import kotlinx.coroutines.launch
 
 class AddressesFragment : AbstractFragment<FragmentAddressesBinding>() {
 
     private lateinit var viewModel : AddressesViewModel
+    private lateinit var loginViewModel : LoginViewModel
     private lateinit var rcViewAdapter : AddressesRcViewAdapter
+    private var isAdmin: Boolean = false
 
     init {
         Log.d("LC", "AddressesFragment init")
@@ -28,11 +34,27 @@ class AddressesFragment : AbstractFragment<FragmentAddressesBinding>() {
     override fun bind(inflater: LayoutInflater, container: ViewGroup?): FragmentAddressesBinding =
         FragmentAddressesBinding.inflate(inflater, container, false)
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        loginViewModel = (activity as ProvideViewModel).viewModel(LoginViewModel::class.java)
+
+        lifecycleScope.launch {
+            val userState = loginViewModel.checkUserStatus()
+            isAdmin = userState.isAdmin
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel = (activity as ProvideViewModel).viewModel(AddressesViewModel::class.java)
+
         initRcView()
+
+        if (isAdded && binding != null) {
+            Log.d("ROLE", "AddressesFragment isAdmin: $isAdmin")
+            binding?.addAddressButton?.visibility = if (isAdmin) View.VISIBLE else View.GONE
+        }
 
         Log.d("LC", "AddressesFragment onViewCreated")
         binding.addAddressButton.setOnClickListener {

@@ -45,11 +45,12 @@ class LoginViewModel(
             try {
                 if (authRepository.isLoggedIn() && authRepository.isEmailVerified()) {
                     val isAdmin = authRepository.isAdmin()
+                    val isViewer = authRepository.isViewer()
                     Log.d(
                         "LC",
                         "LoginViewModel isLoggedIn: ${authRepository.isLoggedIn()} isEmailVerified: ${authRepository.isEmailVerified()} isAdmin: $isAdmin"
                     )
-                    if (isAdmin) {
+                    if (isAdmin || isViewer) {
                         Log.d("LC", "LoginViewModel navigation update to MainFragmentScreen")
                         navigationA.update(MainFragmentScreenA)
                         loggedInLiveDataWrapper.update(true)
@@ -68,37 +69,17 @@ class LoginViewModel(
     }
 
 
-    suspend fun checkUserStatus() : UserState {
+    suspend fun checkUserStatus(): UserState {
         val loggedIn = authRepository.isLoggedIn()
         val verified = if (loggedIn) authRepository.isEmailVerified() else false
         val admin = if (verified) authRepository.isAdmin() else false
+        val viewer = if (verified) authRepository.isViewer() else false
 
-        // Обновляем combinedState напрямую
-        val userState = UserState(loggedIn, verified, admin)
+        val userState = UserState(loggedIn, verified, admin, viewer)
+        _userState.postValue(userState)
         return userState
     }
 
-//    fun checkAdminStatus() {
-//        viewModelScope.launch {
-//            try {
-//                val adminStatus = authRepository.isAdmin() // Метод из AuthRepository
-//                _isAdmin.postValue(adminStatus)
-//            } catch (e: Exception) {
-//                Log.e("AUTH", "Error checking admin status: ${e.message}")
-//                _isAdmin.postValue(false)
-//            }
-//        }
-//    }
-
-//    fun checkIsLoggedIn() : Boolean {
-//        val isLoggedIn
-//        viewModelScope.launch {
-//            if (authRepository.isLoggedIn() && authRepository.isEmailVerified()) {
-//                return true
-//            }
-//        }
-//        return false
-//    }
 
     // Про аутентификацию
     suspend fun login(email: String, password: String) {

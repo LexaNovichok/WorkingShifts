@@ -3,6 +3,7 @@ package com.github.lexanovichok.workingshift.schedule.address.viewModel
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import com.github.lexanovichok.workingshift.authentication.auth.AuthRepository
 import com.github.lexanovichok.workingshift.core.ClearViewModel
 import com.github.lexanovichok.workingshift.schedule.address.core.AddAddressesScreenF
 import com.github.lexanovichok.workingshift.schedule.address.core.AddressInfoLiveDataWrapper
@@ -19,11 +20,13 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 
 class AddressesViewModel(
     private val navigationF: NavigationF.Update,
     private val clear: ClearViewModel,
+    private val authRepository: AuthRepository,
     private val addressRepository: AddressRepository,
     private val addressesListLiveDataWrapper: AddressesListLiveDataWrapper.Mutable,
     private val addressInfoLiveDataWrapper: AddressInfoLiveDataWrapper.Mutable,
@@ -55,6 +58,7 @@ class AddressesViewModel(
 
         })
     }
+
 
     fun deleteAddress(addressId : String) {
         viewModelScope.launch(dispatcher) {

@@ -151,4 +151,21 @@ class AuthRepository {
         }
     }
 
+    suspend fun isViewer(): Boolean {
+        return suspendCoroutine { continuation ->
+            val userId = firebaseAuth.currentUser?.uid ?: return@suspendCoroutine continuation.resume(false)
+            val firestore = FirebaseFirestore.getInstance()
+
+            firestore.collection("users").document(userId).get()
+                .addOnSuccessListener { document ->
+                    val isViewer = document.getBoolean("viewer") ?: false
+                    continuation.resume(isViewer)
+                }
+                .addOnFailureListener { e ->
+                    Log.e(tag, "Failed to fetch viewer status: ${e.message}")
+                    continuation.resume(false)
+                }
+        }
+    }
+
 }

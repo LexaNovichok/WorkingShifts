@@ -7,20 +7,26 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.github.lexanovichok.workingshift.R
+import com.github.lexanovichok.workingshift.authentication.login.LoginViewModel
 import com.github.lexanovichok.workingshift.core.AbstractFragment
 import com.github.lexanovichok.workingshift.core.ProvideViewModel
 import com.github.lexanovichok.workingshift.databinding.FragmentWorkersBinding
 import com.github.lexanovichok.workingshift.schedule.userData.Worker
 import com.github.lexanovichok.workingshift.schedule.worker.core.WorkersRcViewAdapter
 import com.github.lexanovichok.workingshift.schedule.worker.viewModel.WorkersViewModel
+import kotlinx.coroutines.launch
 
 class WorkersFragment : AbstractFragment<FragmentWorkersBinding>() {
 
     private lateinit var workersViewModel : WorkersViewModel
+    private lateinit var loginViewModel : LoginViewModel
     private lateinit var rcViewAdapter : WorkersRcViewAdapter
+    private var isAdmin: Boolean = false
 
     init {
         Log.d("LC", "WorkersFragment: init")
@@ -29,16 +35,40 @@ class WorkersFragment : AbstractFragment<FragmentWorkersBinding>() {
     override fun bind(inflater: LayoutInflater, container: ViewGroup?): FragmentWorkersBinding =
         FragmentWorkersBinding.inflate(inflater, container, false)
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        workersViewModel = (activity as ProvideViewModel).viewModel(WorkersViewModel::class.java)
+        loginViewModel = (activity as ProvideViewModel).viewModel(LoginViewModel::class.java)
+
+        lifecycleScope.launch {
+            try {
+                val userState = loginViewModel.checkUserStatus()
+                isAdmin = userState.isAdmin
+                Log.d("ROLES", "isAdmin: $isAdmin")
+
+                // Обновляем UI, когда статус получен
+                activity?.runOnUiThread {
+                    binding?.addWorkerButton?.visibility = if (isAdmin) View.VISIBLE else View.GONE
+                    Log.d(
+                        "ROLE",
+                        "button onCreate visibility: ${binding?.addWorkerButton?.isVisible}"
+                    )
+
+                }
+            } catch (e: Exception) {
+                Log.e("TaskDayFragment", "Error fetching user status", e)
+            }
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        Log.d("LC", "WorkersFragment: onViewCreated")
-
-        workersViewModel = (activity as ProvideViewModel).viewModel(WorkersViewModel::class.java)
-        Log.d("SCHEDULE", "WorkersFragment onViewCreated")
-
         initRcView()
 
+        if (isAdded && binding != null) {
+            binding?.addWorkerButton?.visibility = if (isAdmin) View.VISIBLE else View.GONE
+        }
 
         binding.addWorkerButton.setOnClickListener {
             workersViewModel.addWorkerFragment()

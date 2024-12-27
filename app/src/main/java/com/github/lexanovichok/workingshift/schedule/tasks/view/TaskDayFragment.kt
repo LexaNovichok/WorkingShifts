@@ -8,31 +8,51 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
+import androidx.lifecycle.distinctUntilChanged
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.github.lexanovichok.workingshift.R
+import com.github.lexanovichok.workingshift.authentication.login.LoginViewModel
 import com.github.lexanovichok.workingshift.core.AbstractFragment
 import com.github.lexanovichok.workingshift.core.ProvideViewModel
 import com.github.lexanovichok.workingshift.schedule.tasks.adapter.TasksRcViewAdapter
 import com.github.lexanovichok.workingshift.databinding.FragmentTaskDayBinding
 import com.github.lexanovichok.workingshift.schedule.tasks.viewModel.TaskDayViewModel
 import com.github.lexanovichok.workingshift.schedule.userData.Task
+import kotlinx.coroutines.launch
 
 class TaskDayFragment : AbstractFragment<FragmentTaskDayBinding>() {
 
     private lateinit var rcViewAdapter: TasksRcViewAdapter
     private lateinit var viewModel: TaskDayViewModel
+    private lateinit var loginViewModel : LoginViewModel
+    private var isAdmin: Boolean = false
+
     override fun bind(inflater: LayoutInflater, container: ViewGroup?): FragmentTaskDayBinding =
         FragmentTaskDayBinding.inflate(inflater, container, false)
 
-    init {
-        Log.d("LC", "MainTaskDayFragmentActivity init")
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel = (activity as ProvideViewModel).viewModel(TaskDayViewModel::class.java)
+        loginViewModel = (activity as ProvideViewModel).viewModel(LoginViewModel::class.java)
+
+        lifecycleScope.launch {
+            val userState = loginViewModel.checkUserStatus()
+            isAdmin = userState.isAdmin
+        }
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = (activity as ProvideViewModel).viewModel(TaskDayViewModel::class.java)
         initRcView()
+
+        if (isAdded && binding != null) {
+            binding?.addTaskButton?.visibility = if (isAdmin) View.VISIBLE else View.GONE
+        }
 
         val date = arguments?.getString(ARG_DATE)
         binding.dateTextView.text = date
@@ -61,17 +81,18 @@ class TaskDayFragment : AbstractFragment<FragmentTaskDayBinding>() {
     }
 
     private fun initRcView() = with(binding) {
-        rcViewAdapter = TasksRcViewAdapter(object : TasksRcViewAdapter.OnTaskClickListener {
-            override fun onClick(task: Task) {
-                viewModel.updateCurrentTaskFromRcView(task)
-                viewModel.infoTaskFragment()
-            }
+            rcViewAdapter = TasksRcViewAdapter(object : TasksRcViewAdapter.OnTaskClickListener {
+                override fun onClick(task: Task) {
+                    viewModel.updateCurrentTaskFromRcView(task)
+                    viewModel.infoTaskFragment()
+                }
+            })
 
-        })
-        rcView.adapter = rcViewAdapter
+            rcView.adapter = rcViewAdapter
 
-        val itemTouchHelper = ItemTouchHelper(itemTouchHelperCallback)
-        itemTouchHelper.attachToRecyclerView(rcView)
+            val itemTouchHelper = ItemTouchHelper(itemTouchHelperCallback)
+            itemTouchHelper.attachToRecyclerView(rcView)
+
     }
 
     companion object {
@@ -96,10 +117,8 @@ class TaskDayFragment : AbstractFragment<FragmentTaskDayBinding>() {
             val fromPosition = viewHolder.adapterPosition
             val toPosition = target.adapterPosition
 
-            // Обновляем порядок элементов в адаптере
             rcViewAdapter.moveItem(fromPosition, toPosition)
 
-            // Сохраняем новый порядок в Firebase
             viewModel.updateOrderInFirebase(rcViewAdapter.list)
 
             return true

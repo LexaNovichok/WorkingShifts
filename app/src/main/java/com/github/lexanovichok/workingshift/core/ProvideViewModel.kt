@@ -79,7 +79,7 @@ interface ProvideViewModel {
                 AddWorkerViewModel::class.java -> AddWorkerViewModel(navigationF, clearViewModel, workerRepository)
                 WorkerInfoViewModel::class.java -> WorkerInfoViewModel(navigationF, workerRepository, workerInfoLiveDataWrapper, clearViewModel)
 
-                AddressesViewModel::class.java -> AddressesViewModel(navigationF,clearViewModel, addressesRepository, addressesListLiveDataWrapper ,addressInfoLiveDataWrapper)
+                AddressesViewModel::class.java -> AddressesViewModel(navigationF,clearViewModel, authRepository, addressesRepository, addressesListLiveDataWrapper ,addressInfoLiveDataWrapper)
                 AddAddressesViewModel::class.java -> AddAddressesViewModel(navigationF, clearViewModel, addressesRepository)
                 AddressInfoViewModel::class.java -> AddressInfoViewModel(navigationF, addressesRepository, addressInfoLiveDataWrapper, clearViewModel)
 
