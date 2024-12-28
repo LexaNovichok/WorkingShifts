@@ -2,7 +2,10 @@ package com.github.lexanovichok.workingshift.core
 
 import com.github.lexanovichok.workingshift.authentication.auth.AuthViewModel
 import androidx.lifecycle.ViewModel
+import com.github.lexanovichok.workingshift.authentication.AdminLiveDataWrapper
 import com.github.lexanovichok.workingshift.authentication.LoggedInLiveDataWrapper
+import com.github.lexanovichok.workingshift.authentication.ViewerLiveDataWrapper
+import com.github.lexanovichok.workingshift.authentication.ViewerViewModel
 import com.github.lexanovichok.workingshift.authentication.auth.AuthRepository
 import com.github.lexanovichok.workingshift.authentication.login.LoginViewModel
 import com.github.lexanovichok.workingshift.main.MainViewModel
@@ -60,11 +63,14 @@ interface ProvideViewModel {
 
         private val loggedInLiveDataWrapper = LoggedInLiveDataWrapper.Base()
 
+        private val viewerLiveDataWrapper = ViewerLiveDataWrapper.Base()
+        private val adminLiveDataWrapper = AdminLiveDataWrapper.Base()
+
         override fun <T : ViewModel> viewModel(viewModelClass: Class<T>): T {
             return when(viewModelClass) {
                 MainViewModel::class.java -> MainViewModel(navigationA, loggedInLiveDataWrapper)
                 AuthViewModel::class.java -> AuthViewModel(authRepository, inputValidator)
-                LoginViewModel::class.java -> LoginViewModel(navigationA, loggedInLiveDataWrapper, authRepository, inputValidator)
+                LoginViewModel::class.java -> LoginViewModel(navigationA, loggedInLiveDataWrapper, viewerLiveDataWrapper, adminLiveDataWrapper, authRepository, inputValidator)
                 RegisterViewModel::class.java -> RegisterViewModel(navigationA, authRepository, inputValidator)
                 PasswordResetViewModel::class.java -> PasswordResetViewModel(navigationA, clearViewModel, authRepository, inputValidator)
 
@@ -82,6 +88,8 @@ interface ProvideViewModel {
                 AddressesViewModel::class.java -> AddressesViewModel(navigationF,clearViewModel, addressesRepository, addressesListLiveDataWrapper ,addressInfoLiveDataWrapper)
                 AddAddressesViewModel::class.java -> AddAddressesViewModel(navigationF, clearViewModel, addressesRepository)
                 AddressInfoViewModel::class.java -> AddressInfoViewModel(navigationF, addressesRepository, addressInfoLiveDataWrapper, clearViewModel)
+
+                ViewerViewModel::class.java -> ViewerViewModel(authRepository, viewerLiveDataWrapper, adminLiveDataWrapper)
 
                 else -> throw IllegalStateException("unknown viewModelClass $viewModelClass")
             } as T

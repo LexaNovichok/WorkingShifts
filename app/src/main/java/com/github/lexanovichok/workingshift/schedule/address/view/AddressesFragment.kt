@@ -7,9 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.github.lexanovichok.workingshift.R
+import com.github.lexanovichok.workingshift.authentication.ViewerViewModel
+import com.github.lexanovichok.workingshift.authentication.login.LoginViewModel
 import com.github.lexanovichok.workingshift.core.AbstractFragment
 import com.github.lexanovichok.workingshift.core.ProvideViewModel
 import com.github.lexanovichok.workingshift.databinding.FragmentAddressesBinding
@@ -20,6 +23,7 @@ import com.github.lexanovichok.workingshift.schedule.userData.Address
 class AddressesFragment : AbstractFragment<FragmentAddressesBinding>() {
 
     private lateinit var viewModel : AddressesViewModel
+    private lateinit var loginViewModel: LoginViewModel
     private lateinit var rcViewAdapter : AddressesRcViewAdapter
 
     init {
@@ -32,7 +36,20 @@ class AddressesFragment : AbstractFragment<FragmentAddressesBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel = (activity as ProvideViewModel).viewModel(AddressesViewModel::class.java)
+        loginViewModel = (activity as ProvideViewModel).viewModel(LoginViewModel::class.java)
         initRcView()
+
+        loginViewModel.viewerLiveData().observe(viewLifecycleOwner) {
+            if (loginViewModel.viewerLiveData().value == true)
+                binding.addAddressButton.isVisible = false
+            Log.d("ROLE", "isViewer: ${loginViewModel.viewerLiveData().value}")
+        }
+
+        loginViewModel.adminLiveData().observe(viewLifecycleOwner) {
+            if (loginViewModel.adminLiveData().value == true)
+                binding.addAddressButton.isVisible = true
+            Log.d("ROLE", "isAdmin: ${loginViewModel.adminLiveData().value}")
+        }
 
         Log.d("LC", "AddressesFragment onViewCreated")
         binding.addAddressButton.setOnClickListener {
@@ -48,9 +65,11 @@ class AddressesFragment : AbstractFragment<FragmentAddressesBinding>() {
     private fun initRcView() = with(binding) {
         rcViewAdapter = AddressesRcViewAdapter(object : AddressesRcViewAdapter.OnAddressClickListener {
             override fun onClick(address: Address) {
-                viewModel.updateAddressFromRcView(address)
-                Log.d("LiveData", "Go to item with address: $address")
-                viewModel.addressInfoFragment()
+                if (loginViewModel.adminLiveData().value == true) {
+                    viewModel.updateAddressFromRcView(address)
+                    Log.d("LiveData", "Go to item with address: $address")
+                    viewModel.addressInfoFragment()
+                }
             }
 
         })

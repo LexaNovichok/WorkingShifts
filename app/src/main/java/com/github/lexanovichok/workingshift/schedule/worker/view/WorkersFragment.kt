@@ -7,9 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.github.lexanovichok.workingshift.R
+import com.github.lexanovichok.workingshift.authentication.login.LoginViewModel
 import com.github.lexanovichok.workingshift.core.AbstractFragment
 import com.github.lexanovichok.workingshift.core.ProvideViewModel
 import com.github.lexanovichok.workingshift.databinding.FragmentWorkersBinding
@@ -20,6 +22,7 @@ import com.github.lexanovichok.workingshift.schedule.worker.viewModel.WorkersVie
 class WorkersFragment : AbstractFragment<FragmentWorkersBinding>() {
 
     private lateinit var workersViewModel : WorkersViewModel
+    private lateinit var loginViewModel: LoginViewModel
     private lateinit var rcViewAdapter : WorkersRcViewAdapter
 
     init {
@@ -35,9 +38,20 @@ class WorkersFragment : AbstractFragment<FragmentWorkersBinding>() {
         Log.d("LC", "WorkersFragment: onViewCreated")
 
         workersViewModel = (activity as ProvideViewModel).viewModel(WorkersViewModel::class.java)
-        Log.d("SCHEDULE", "WorkersFragment onViewCreated")
-
+        loginViewModel = (activity as ProvideViewModel).viewModel(LoginViewModel::class.java)
         initRcView()
+
+        loginViewModel.viewerLiveData().observe(viewLifecycleOwner) {
+            if (loginViewModel.viewerLiveData().value == true)
+                binding.addWorkerButton.isVisible = false
+            Log.d("ROLE", "isViewer: ${loginViewModel.viewerLiveData().value}")
+        }
+
+        loginViewModel.adminLiveData().observe(viewLifecycleOwner) {
+            if (loginViewModel.adminLiveData().value == true)
+                binding.addWorkerButton.isVisible = true
+            Log.d("ROLE", "isAdmin: ${loginViewModel.adminLiveData().value}")
+        }
 
 
         binding.addWorkerButton.setOnClickListener {
@@ -54,8 +68,10 @@ class WorkersFragment : AbstractFragment<FragmentWorkersBinding>() {
     private fun initRcView() = with(binding) {
         rcViewAdapter = WorkersRcViewAdapter(object : WorkersRcViewAdapter.OnWorkerClickListener {
             override fun onClick(worker: Worker) {
-                workersViewModel.updateCurrentWorkerFromRcView(worker)
-                workersViewModel.workerInfoFragment()
+                if (loginViewModel.adminLiveData().value == true) {
+                    workersViewModel.updateCurrentWorkerFromRcView(worker)
+                    workersViewModel.workerInfoFragment()
+                }
             }
 
         })

@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.lifecycle.lifecycleScope
+import com.github.lexanovichok.workingshift.authentication.ViewerViewModel
 import com.github.lexanovichok.workingshift.databinding.FragmentLoginBinding
 import com.github.lexanovichok.workingshift.core.AbstractFragment
 import com.github.lexanovichok.workingshift.core.ProvideViewModel
@@ -31,6 +32,9 @@ class LoginFragment : AbstractFragment<FragmentLoginBinding>() {
         Log.d("LC", "LoginFragment onViewCreated")
         loginViewModel = (activity as ProvideViewModel).viewModel(LoginViewModel::class.java)
 
+        lifecycleScope.launch {
+            loginViewModel.checkUserStatus()
+        }
 
 //        loginViewModel.isLoggedIn.observe(viewLifecycleOwner) {
 //            if (it && loginViewModel.isEmailVerified()) {
@@ -60,13 +64,19 @@ class LoginFragment : AbstractFragment<FragmentLoginBinding>() {
                 Log.d("LC", "isLoggedIn: ${userState.isLoggedIn}, isVerified: ${userState.isEmailVerified} isAdmin: ${userState.isAdmin}")
 
                 if (userState.isLoggedIn && userState.isEmailVerified) {
-                    if (userState.isAdmin) {
-                        loginViewModel.mainFragment()
-                    } else {
-                        Toast.makeText(requireContext(), "Недостаточно прав", Toast.LENGTH_SHORT).show()
+                    when {
+                        userState.isAdmin -> {
+                            loginViewModel.mainFragment()
+                        }
+                        userState.isViewer -> {
+                            loginViewModel.mainFragment()
+                        }
+                        else -> {
+                            Toast.makeText(requireContext(), "Недостаточно прав", Toast.LENGTH_SHORT).show()
+                        }
                     }
                 } else if (userState.isLoggedIn && !userState.isEmailVerified) {
-                    //Toast.makeText(requireContext(), "Please verify your email first", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "Пожалуйста, подтвердите свою почту", Toast.LENGTH_SHORT).show()
                 }
             }
 

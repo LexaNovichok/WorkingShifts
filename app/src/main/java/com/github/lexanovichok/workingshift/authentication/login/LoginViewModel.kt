@@ -5,8 +5,10 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
+import com.github.lexanovichok.workingshift.authentication.AdminLiveDataWrapper
 import com.github.lexanovichok.workingshift.authentication.LoggedInLiveDataWrapper
 import com.github.lexanovichok.workingshift.authentication.UserState
+import com.github.lexanovichok.workingshift.authentication.ViewerLiveDataWrapper
 import com.github.lexanovichok.workingshift.authentication.auth.AuthRepository
 import com.github.lexanovichok.workingshift.authentication.auth.AuthViewModel
 import com.github.lexanovichok.workingshift.core.InputValidator
@@ -23,6 +25,8 @@ import kotlinx.coroutines.withContext
 class LoginViewModel(
     private val navigationA: NavigationA.Mutable,
     private val loggedInLiveDataWrapper : LoggedInLiveDataWrapper.Mutable,
+    private val viewerLiveDataWrapper: ViewerLiveDataWrapper.Mutable,
+    private val adminLiveDataWrapper: AdminLiveDataWrapper.Mutable,
     repository : AuthRepository,
     inputValidator: InputValidator
 ) : AuthViewModel(repository, inputValidator) {
@@ -30,9 +34,6 @@ class LoginViewModel(
     private val _isEmailVerified = MutableLiveData<Boolean>()
     val isEmailVerified: LiveData<Boolean> get() = _isEmailVerified
 
-
-    private val _isAdmin = MutableLiveData<Boolean>(false)
-    val isAdmin : LiveData<Boolean> get() = _isAdmin
 
     private val _userState = MutableLiveData<UserState>()
     val userState: LiveData<UserState> = _userState
@@ -45,11 +46,13 @@ class LoginViewModel(
             try {
                 if (authRepository.isLoggedIn() && authRepository.isEmailVerified()) {
                     val isAdmin = authRepository.isAdmin()
+                    val isViewer = authRepository.isViewer()
+
                     Log.d(
                         "LC",
                         "LoginViewModel isLoggedIn: ${authRepository.isLoggedIn()} isEmailVerified: ${authRepository.isEmailVerified()} isAdmin: $isAdmin"
                     )
-                    if (isAdmin) {
+                    if (isAdmin || isViewer) {
                         Log.d("LC", "LoginViewModel navigation update to MainFragmentScreen")
                         navigationA.update(MainFragmentScreenA)
                         loggedInLiveDataWrapper.update(true)
@@ -68,13 +71,20 @@ class LoginViewModel(
     }
 
 
+
     suspend fun checkUserStatus() : UserState {
         val loggedIn = authRepository.isLoggedIn()
         val verified = if (loggedIn) authRepository.isEmailVerified() else false
         val admin = if (verified) authRepository.isAdmin() else false
+        val viewer = if (verified) authRepository.isViewer() else false
 
         // Обновляем combinedState напрямую
-        val userState = UserState(loggedIn, verified, admin)
+        val userState = UserState(loggedIn, verified, admin, viewer)
+
+        adminLiveDataWrapper.update(userState.isAdmin)
+        viewerLiveDataWrapper.update(userState.isViewer)
+
+        Log.d("ROLE", "LoginViewModel isAdmin: ${userState.isAdmin}, isViewer: ${userState.isViewer}")
         return userState
     }
 
@@ -106,10 +116,7 @@ class LoginViewModel(
         if (!checkIsFieldsCorrect(email, password)) return
         try {
             authRepository.login(email, password)
-            Log.d(
-                "AUTH",
-                "LoginViewModel isLoggedIn: ${_isLoggedIn.value} isVerified: ${_isEmailVerified.value} isAdmin: ${_isAdmin.value}"
-            )
+
         } catch (e: Exception) {
             _errorMessage.value = e.message
         }
@@ -150,6 +157,9 @@ class LoginViewModel(
         navigationA.update(PasswordResetScreenA)
         Log.d("NAVIGATION", "LoginViewModel update to: PasswordResetScreenA")
     }
+
+    fun viewerLiveData() = viewerLiveDataWrapper.liveData()
+    fun adminLiveData() = adminLiveDataWrapper.liveData()
 
     companion object {
         private const val KEY = "DATA_USER_BUNDLE_KEY"

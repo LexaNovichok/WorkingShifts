@@ -39,7 +39,8 @@ class AuthRepository {
                             val newUser = User(
                                 uid = user.uid,
                                 email = user.email ?: "",
-                                isAdmin = false // По умолчанию false
+                                isAdmin = false, // По умолчанию false,
+                                isViewer = false
                             )
 
                             firestore.collection("users").document(user.uid).set(newUser)
@@ -142,10 +143,29 @@ class AuthRepository {
             firestore.collection("users").document(userId).get()
                 .addOnSuccessListener { document ->
                     val isAdmin = document.getBoolean("admin") ?: false
+                    Log.d("ROLE", "repo isAdmin: $isAdmin")
                     continuation.resume(isAdmin)
                 }
                 .addOnFailureListener { e ->
                     Log.e(tag, "Failed to fetch admin status: ${e.message}")
+                    continuation.resume(false)
+                }
+        }
+    }
+
+    suspend fun isViewer(): Boolean {
+        return suspendCoroutine { continuation ->
+            val userId = firebaseAuth.currentUser?.uid ?: return@suspendCoroutine continuation.resume(false)
+            val firestore = FirebaseFirestore.getInstance()
+
+            firestore.collection("users").document(userId).get()
+                .addOnSuccessListener { document ->
+                    val isViewer = document.getBoolean("viewer") ?: false
+                    Log.d("ROLE", "repo isViewer: $isViewer")
+                    continuation.resume(isViewer)
+                }
+                .addOnFailureListener { e ->
+                    Log.e(tag, "Failed to fetch viewer status: ${e.message}")
                     continuation.resume(false)
                 }
         }

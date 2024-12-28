@@ -8,9 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.github.lexanovichok.workingshift.R
+import com.github.lexanovichok.workingshift.authentication.login.LoginViewModel
 import com.github.lexanovichok.workingshift.core.AbstractFragment
 import com.github.lexanovichok.workingshift.core.ProvideViewModel
 import com.github.lexanovichok.workingshift.schedule.tasks.adapter.TasksRcViewAdapter
@@ -22,6 +24,7 @@ class TaskDayFragment : AbstractFragment<FragmentTaskDayBinding>() {
 
     private lateinit var rcViewAdapter: TasksRcViewAdapter
     private lateinit var viewModel: TaskDayViewModel
+    private lateinit var loginViewModel: LoginViewModel
     override fun bind(inflater: LayoutInflater, container: ViewGroup?): FragmentTaskDayBinding =
         FragmentTaskDayBinding.inflate(inflater, container, false)
 
@@ -32,7 +35,21 @@ class TaskDayFragment : AbstractFragment<FragmentTaskDayBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel = (activity as ProvideViewModel).viewModel(TaskDayViewModel::class.java)
+        loginViewModel = (activity as ProvideViewModel).viewModel(LoginViewModel::class.java)
         initRcView()
+
+        loginViewModel.viewerLiveData().observe(viewLifecycleOwner) {
+            if (loginViewModel.viewerLiveData().value == true)
+                binding.addTaskButton.isVisible = false
+            Log.d("ROLE", "isViewer: ${loginViewModel.viewerLiveData().value}")
+        }
+
+        loginViewModel.adminLiveData().observe(viewLifecycleOwner) {
+            if (loginViewModel.adminLiveData().value == true)
+                binding.addTaskButton.isVisible = true
+            Log.d("ROLE", "isAdmin: ${loginViewModel.adminLiveData().value}")
+        }
+
 
         val date = arguments?.getString(ARG_DATE)
         binding.dateTextView.text = date
@@ -63,8 +80,10 @@ class TaskDayFragment : AbstractFragment<FragmentTaskDayBinding>() {
     private fun initRcView() = with(binding) {
         rcViewAdapter = TasksRcViewAdapter(object : TasksRcViewAdapter.OnTaskClickListener {
             override fun onClick(task: Task) {
-                viewModel.updateCurrentTaskFromRcView(task)
-                viewModel.infoTaskFragment()
+                if (loginViewModel.adminLiveData().value == true) {
+                    viewModel.updateCurrentTaskFromRcView(task)
+                    viewModel.infoTaskFragment()
+                }
             }
 
         })
