@@ -9,7 +9,14 @@
     <color name="gray">#808080</color>
     <color name="dark_blue">#3F51B5</color>
     <color name="indigo">#4B0082</color>
+    <color name="shampane">#e7dbcb</color>
+    <color name="laguna">#5c8ea9</color>
+    <color name="light_purple">#b8b6b9</color>
+    <color name="laguna_blue">#8eacb7</color>
 
 
+    <color name="sineva">#1b2848</color>
+    <color name="light_sineva">#4462ab</color>
+    <color name="light_blue">#66829c</color>
 </resources>
 

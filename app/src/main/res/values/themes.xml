@@ -1,19 +1,24 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.WorkingShifts" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="android:windowBackground">@drawable/backgr_im</item>
+        <item name="android:windowBackground">@drawable/test</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="android:windowTranslucentStatus">false</item> <!-- Для прозрачности статус-бара -->
         <item name="android:windowTranslucentNavigation">false</item> <!-- Для прозрачности навигационной панели -->
 
-        <!-- Цвет линии, когда EditText активен -->
         <item name="colorControlActivated">@color/dark_blue</item>
-        <!-- Цвет подчеркивания -->
         <item name="colorAccent">@color/white</item>
-<!--        &lt;!&ndash; Цвет линии, когда EditText не активен &ndash;&gt;-->
-<!--        <item name="colorControlNormal">@color/your_custom_color</item>-->
+        <item name="navViewColor">@color/laguna_blue</item>
+        <item name="textViewColor">@color/black</item>
+        <item name="textViewEditTextColor">@color/black</item>
+
+        <item name="colorControlNormal">@color/black</item>
+        <item name="itemBgColor">@color/shampane</item>
+        <item name="buttonBgColor">@color/black</item>
+        <item name="editTextBgColor">@color/black</item>
+
     </style>
 
     <style name="Theme.WorkingShifts" parent="Base.Theme.WorkingShifts" />

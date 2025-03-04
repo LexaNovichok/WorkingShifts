@@ -11,9 +11,24 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="24dp"
-        android:gravity="center"
+        android:gravity="center_vertical"
+
         android:fitsSystemWindows="true">
 
+<!--        <ImageView-->
+<!--            android:layout_width="100dp"-->
+<!--            android:layout_height="100dp"-->
+<!--            android:src="@drawable/workingshiftlogo"-->
+<!--            android:layout_marginTop="20dp"-->
+<!--            android:layout_marginBottom="50dp"/>-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+
+
+            android:gravity="center">
         <TextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
@@ -30,11 +45,9 @@
             android:layout_height="wrap_content"
             android:hint="Email"
             android:layout_marginBottom="8dp"
-            android:padding="12dp"
+            android:autofillHints="emailAddress"
             android:maxWidth="450dp"
-            android:backgroundTint="@color/white"
-            android:textColor="#FFFFFF"
-            android:textColorHint="#80FFFFFF"
+            style="@style/EditTextAuthStyle"
             android:inputType="textEmailAddress" />
 
         <EditText
@@ -43,11 +56,9 @@
             android:layout_height="wrap_content"
             android:hint="Password"
             android:layout_marginBottom="2dp"
-            android:padding="12dp"
+            style="@style/EditTextAuthStyle"
             android:maxWidth="450dp"
-            android:backgroundTint="@color/white"
-            android:textColor="#FFFFFF"
-            android:textColorHint="#80FFFFFF"
+            android:autofillHints="password"
             android:inputType="textPassword" />
 
         <TextView
@@ -68,8 +79,6 @@
             android:orientation="horizontal"
             android:layout_marginBottom="16dp" >
 
-
-
         </LinearLayout>
 
         <Button
@@ -77,8 +86,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Log In"
-            android:backgroundTint="@color/black"
-            android:textColor="#FFFFFF"
+            android:backgroundTint="?attr/buttonBgColor"
+            android:textColor="@color/white"
             android:layout_marginBottom="16dp" />
 
         <TextView
@@ -92,6 +101,8 @@
             android:textSize="16sp"
             android:text="Don’t have an account? Sign Up"
             android:textColor="#FFFFFF" />
+    </LinearLayout>
+
     </LinearLayout>
 
 

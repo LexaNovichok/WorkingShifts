@@ -22,9 +22,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:src="@drawable/plus"
-        android:backgroundTint="@color/dark_blue"
-        android:layout_margin="12dp"
+        style="@style/FloatingButton"
         android:contentDescription="addWorkerButton" />
 
 

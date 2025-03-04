@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "286590245106",
+    "firebase_url": "https://workingshift-6ad8a-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "workingshift-6ad8a",
+    "storage_bucket": "workingshift-6ad8a.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:286590245106:android:97f7e21331c7bc86d7d86b",
+        "android_client_info": {
+          "package_name": "com.github.lexanovichok.workingshift"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCjcRugp0xez7WZEnJp9UEsVkb9SEA43hY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

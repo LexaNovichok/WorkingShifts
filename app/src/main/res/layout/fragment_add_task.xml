@@ -1,73 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
+    <!-- Обертка для прокручиваемого содержимого -->
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="top"
-        android:orientation="vertical"
-        android:padding="16dp"
-        android:layout_marginTop="80dp"
+        app:layout_constraintBottom_toTopOf="@+id/saveButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginBottom="12dp">
 
-
-        <AutoCompleteTextView
-            android:id="@+id/workerSpinner"
+        <LinearLayout
+            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/SpinnerStyle"
-            android:hint="Введите работника"
-            android:layout_marginTop="8dp" />
+            android:layout_marginTop="80dp"
+            android:orientation="vertical"
+            android:padding="16dp">
 
+            <AutoCompleteTextView
+                android:id="@+id/workerSpinner"
+                style="@style/SpinnerStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:backgroundTint="?attr/editTextBgColor"
+                android:hint="Введите работника"
+                android:textColor="@color/white" />
 
-        <Space
-            android:layout_width="wrap_content"
-            android:layout_height="28dp"/>
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="28dp" />
 
-        <AutoCompleteTextView
-            android:id="@+id/addressSpinner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/SpinnerStyle"
-            android:hint="Введите адрес"
-            android:layout_marginTop="8dp" />
+            <AutoCompleteTextView
+                android:id="@+id/addressSpinner"
+                style="@style/SpinnerStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:backgroundTint="?attr/editTextBgColor"
+                android:hint="Введите адрес"
+                android:textColor="@color/white" />
 
-        <TextView
-            style="@style/TextViewWhite"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="18dp"
-            android:textSize="22sp" />
+            <TextView
+                style="@style/TextViewWhite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="18dp"
+                android:textSize="22sp" />
 
-        <EditText
-            android:id="@+id/descriptionEditText"
-            style="@style/EditTextStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Описание"
-            android:textSize="22sp"
-            android:layout_marginTop="8dp" />
-    </LinearLayout>
+            <EditText
+                android:id="@+id/descriptionEditText"
+                style="@style/EditTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:hint="Описание"
+                android:textColorHint="@color/white"
+                android:textSize="22sp" />
 
+        </LinearLayout>
+    </ScrollView>
 
     <Button
         android:id="@+id/saveButton"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="18dp"
+        android:backgroundTint="?attr/buttonBgColor"
+        android:textColor="@color/white"
         android:text="@string/add"
-        android:layout_marginBottom="40dp"
-        android:backgroundTint="@color/black"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/linearLayout"/>
+        android:layout_margin="8dp"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
